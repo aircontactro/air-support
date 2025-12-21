@@ -1,14 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AIR Support</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Întâlniri audio anonime, fără cameră. Suport pentru cei afectați de alcool." />
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f7fb;color:#111}
+    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    .card{background:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);margin:14px 0}
+    h1{margin:0 0 8px;font-size:30px}
+    h2{margin:0 0 8px;font-size:18px}
+    p{margin:10px 0;line-height:1.5;color:#333}
+    .muted{color:#555;font-size:14px}
+    .pill{display:inline-block;background:#eef1ff;color:#1a2b7a;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    .btn{display:inline-block;background:#111;color:#fff;text-decoration:none;padding:12px 14px;border-radius:14px;font-weight:800}
+    .btn2{display:inline-block;background:#f0f0f0;color:#111;text-decoration:none;padding:12px 14px;border-radius:14px;font-weight:800}
+    .grid{display:grid;gap:14px}
+    @media(min-width:820px){.grid{grid-template-columns:1.2fr .8fr}}
+    ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+    .danger{border-left:6px solid #c80000}
+    .footer{padding:12px 0;text-align:center;color:#666;font-size:12px}
+  </style>
 </head>
 <body>
-  <h1>AIR Support</h1>
-  <p>Suport anonim pentru cei afectați de alcool.</p>
-  <p><strong>Întâlniri audio gratuite. Fără cameră. 30 minute.</strong></p>
-  <p>Site în construcție.</p>
+  <div class="wrap">
+
+    <div class="card">
+      <span class="pill">Anonim • Gratuit • Fără cameră</span>
+      <h1>AIR Support</h1>
+      <p>Întâlniri audio pentru persoane afectate de alcool (direct sau indirect). Poți vorbi sau poți doar asculta.</p>
+
+      <!-- LINK JITSI – îl poți schimba doar pe ăsta -->
+      <p>
+        <a class="btn" href="https://meet.jit.si/AIR-Support-RO-1900" target="_blank" rel="noopener">
+          Intră în întâlnirea audio
+        </a>
+        <a class="btn2" href="#reguli">Reguli</a>
+      </p>
+
+      <p class="muted">Nu colectăm date personale. AIR nu înlocuiește ajutorul medical.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Program (ora României)</h2>
+        <ul>
+          <li><b>Zilnic</b> – <b>19:00</b> (30 min)</li>
+          <li><b>Marți</b> – <b>21:00</b> (30 min)</li>
+          <li><b>Sâmbătă</b> – <b>11:00</b> (30 min)</li>
+        </ul>
+        <p class="muted">Dacă sunt mulți oameni, facem format „ascultare”.</p>
+      </div>
+
+      <div class="card danger">
+        <h2>Urgențe</h2>
+        <p class="muted">Dacă ești în pericol, sună <b>112</b> sau mergi la spital. AIR este suport, nu serviciu de criză.</p>
+      </div>
+    </div>
+
+    <div class="card" id="reguli">
+      <h2>Reguli simple</h2>
+      <ul>
+        <li>Fără nume reale (folosește un nickname).</li>
+        <li>Fără cameră video.</li>
+        <li>Vorbim pe rând.</li>
+        <li>Fără jigniri, fără predici.</li>
+        <li>Confidențialitate totală.</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      © AIR Support • Simplu • Sigur • Anonim
+    </div>
+
+  </div>
 </body>
 </html>
