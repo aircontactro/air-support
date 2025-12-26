@@ -1,210 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AIR Support | Întâlniri audio anonime</title>
-  <meta name="description" content="AIR Support: întâlniri audio anonime pentru cei afectați de alcool (direct sau indirect). Fără cameră. Gratuit." />
-
+  <meta charset="UTF-8">
+  <title>Under Construction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    :root{
-      --bg:#0b1220;
-      --card:#101a31;
-      --text:#e9eefc;
-      --muted:#a8b3d6;
-      --line:rgba(255,255,255,.10);
-      --accent:#6ea8ff;
-      --accent2:#7cf0c5;
-      --warn:#ffb86b;
-      --danger:#ff6b7a;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --r:18px;
-    }
-    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(1200px 500px at 20% -10%, rgba(110,168,255,.25), transparent 60%),
-        radial-gradient(900px 600px at 95% 10%, rgba(124,240,197,.18), transparent 55%),
-        radial-gradient(900px 700px at 40% 120%, rgba(255,184,107,.12), transparent 60%),
-        var(--bg);
-      color:var(--text);
-      line-height:1.5;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#0b1220;
+      color:#e9eefc;
+      font-family:system-ui, sans-serif;
+      text-align:center;
     }
-    .wrap{max-width:980px;margin:0 auto;padding:28px 16px 64px}
-    .top{
-      display:flex;justify-content:space-between;align-items:center;
-      gap:12px;margin-bottom:18px;flex-wrap:wrap;
+    .box{
+      background:#101a31;
+      padding:40px;
+      border-radius:16px;
+      box-shadow:0 20px 60px rgba(0,0,0,.4);
     }
-    .badge{
-      display:inline-flex;gap:8px;align-items:center;
-      padding:8px 12px;border:1px solid var(--line);
-      border-radius:999px;background:rgba(255,255,255,.04);
-      color:var(--muted);font-size:13px;
-    }
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 6px rgba(124,240,197,.12)}
-    header{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius:var(--r);
-      padding:22px;
-      box-shadow:var(--shadow);
-    }
-    h1{margin:0 0 6px;font-size:32px}
-    .subtitle{margin:0;color:var(--muted)}
-    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 14px;border-radius:12px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      font-weight:650;cursor:pointer;
-    }
-    .btn.primary{
-      background:linear-gradient(135deg, rgba(110,168,255,.85), rgba(124,240,197,.55));
-      border-color:transparent;color:#071027;
-    }
-    .grid{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:14px;
-    }
-    @media (max-width:860px){.grid{grid-template-columns:1fr}}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius:var(--r);
-      padding:18px;
-      box-shadow:0 18px 50px rgba(0,0,0,.25);
-    }
-    .muted{color:var(--muted)}
-    ul{padding-left:18px}
-    li{margin:6px 0;color:var(--muted)}
-    .pill{
-      display:inline-flex;gap:8px;align-items:center;
-      padding:7px 10px;border-radius:999px;
-      border:1px solid var(--line);background:rgba(255,255,255,.03);
-      color:var(--muted);font-size:13px;margin-top:10px;
-    }
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center}
-    .overlay.show{display:flex}
-    .modal{background:#101a31;border-radius:18px;padding:16px;width:min(680px,100%)}
-    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:none;
-      background:#101a31;padding:10px 14px;border-radius:999px}
-    .toast.show{display:block}
+    h1{font-size:2.2rem;margin-bottom:10px}
+    p{opacity:.75}
   </style>
 </head>
-
 <body>
-<div class="wrap">
-  <div class="top">
-    <div class="badge"><span class="dot"></span> Anonim • Gratuit • Audio-only</div>
-    <div class="badge">air-support.ro</div>
+  <div class="box">
+    <h1>🚧 Under Construction</h1>
+    <p>Lucrăm la ceva serios. Revino curând.</p>
   </div>
-
-  <header>
-    <h1>AIR Support</h1>
-    <p class="subtitle">Întâlniri audio pentru persoane afectate de alcool. Poți vorbi sau poți doar asculta.</p>
-
-    <div class="ctaRow">
-      <a class="btn primary" id="joinBtn" target="_blank">Intră în întâlnirea audio</a>
-      <a class="btn" href="pasi-sobrietate.html">Pași spre sobrietate</a>
-      <a class="btn" href="pentru-apartinatori.html">Pentru aparținători</a>
-      <a class="btn" href="intrebari-grele.html">Întrebări grele</a>
-      <a class="btn" href="resurse.html">Resurse</a>
-      <button class="btn" id="copyBtn">Copiază link</button>
-      <button class="btn" id="rulesBtn">Reguli</button>
-      <button class="btn" id="scheduleBtn">Program</button>
-    </div>
-
-    <p class="muted">La intrare, alege un nickname anonim.</p>
-    <div class="pill">Nu colectăm date personale. AIR este suport, nu terapie.</div>
-  </header>
-
-  <div class="grid">
-    <section class="card">
-      <h2>Ce este AIR?</h2>
-      <p class="muted">Un spațiu audio anonim. Fără cameră. Fără judecată.</p>
-      <ul>
-        <li>Camera este dezactivată din start</li>
-        <li>Durată: 30 minute</li>
-        <li>Poți sta doar să asculți</li>
-      </ul>
-    </section>
-
-    <aside class="card">
-      <h2>Program</h2>
-      <ul>
-        <li>Zilnic: <b>19:00</b></li>
-        <li>Marți: <b>21:00</b></li>
-        <li>Sâmbătă: <b>11:00</b></li>
-      </ul>
-      <div class="pill">Ora României</div>
-      <p class="muted">Urgențe: sună <b>112</b></p>
-    </aside>
-  </div>
-
-  <footer>
-    Cameră permanentă Jitsi: <code id="roomCode"></code><br>
-    Proiect comunitar, fără scop comercial
-  </footer>
-</div>
-
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <h3 id="modalTitle"></h3>
-    <div id="modalBody" class="muted"></div>
-    <button onclick="closeModal()">Închide</button>
-  </div>
-</div>
-
-<div class="toast" id="toast">Copiat ✅</div>
-
-<script>
-  const ROOM = "AIRSupportAudioRO2025";
-
-  const JITSI_URL =
-    "https://meet.jit.si/" + ROOM +
-    "#config.startWithVideoMuted=true" +
-    "&config.disableVideo=true" +
-    "&config.startWithAudioMuted=true" +
-    "&config.prejoinPageEnabled=true" +
-    "&interfaceConfig.TOOLBAR_BUTTONS=['microphone','hangup','chat','raisehand','participants-pane']";
-
-  joinBtn.href = JITSI_URL;
-  roomCode.textContent = ROOM;
-
-  function openModal(title, html){
-    modalTitle.textContent = title;
-    modalBody.innerHTML = html;
-    overlay.classList.add("show");
-  }
-  function closeModal(){ overlay.classList.remove("show"); }
-
-  rulesBtn.onclick = () => openModal("Reguli", `
-    <ul>
-      <li>Nickname, fără nume reale</li>
-      <li>Fără cameră video</li>
-      <li>Vorbim pe rând</li>
-      <li>Respect total</li>
-      <li>Confidențialitate</li>
-    </ul>`);
-
-  scheduleBtn.onclick = () => openModal("Program", `
-    <ul>
-      <li>Zilnic: 19:00</li>
-      <li>Marți: 21:00</li>
-      <li>Sâmbătă: 11:00</li>
-    </ul>
-    <p>Ora României</p>`);
-
-  copyBtn.onclick = async () => {
-    await navigator.clipboard.writeText(JITSI_URL);
-    toast.classList.add("show");
-    setTimeout(()=>toast.classList.remove("show"),1200);
-  };
-</script>
 </body>
 </html>
