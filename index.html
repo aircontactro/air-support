@@ -1,324 +1,305 @@
-<!doctype html>
+code
+Html
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Site în construcție | Revenim curând</title>
-  <meta name="description" content="Site în construcție. Revenim curând cu o versiune nouă." />
-  <meta name="robots" content="noindex,nofollow" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AIR Support - Comunitate anonimă pentru recuperare din alcoolism. Întâlniri audio zilnice, resurse și sprijin gratuit.">
+    <title>AIR Support - Recuperare Anonimă</title>
+    <!-- Favicon (poți adăuga un icon mai târziu) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌬️</text></svg>">
+    
+    <style>
+        /* --- DESIGN: Aerisit, Calm, Serios --- */
+        :root {
+            --primary: #006d77; /* Turcoaz închis - stabilitate */
+            --secondary: #83c5be; /* Turcoaz deschis - calm */
+            --accent: #e29578; /* Culoare caldă pentru acțiuni */
+            --bg-light: #edf6f9;
+            --text-dark: #2d3436;
+            --white: #ffffff;
+        }
 
-  <style>
-    :root{
-      --bg1:#061427;
-      --bg2:#0b2a4f;
-      --card:rgba(255,255,255,.08);
-      --line:rgba(255,255,255,.12);
-      --text:#eaf3ff;
-      --muted:rgba(234,243,255,.75);
-      --accent:#7ecbff;   /* albastru deschis */
-      --accent2:#a9e3ff;  /* și mai deschis */
-      --shadow: 0 24px 80px rgba(0,0,0,.45);
-      --r:18px;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(900px 600px at 20% 15%, rgba(126,203,255,.22), transparent 60%),
-        radial-gradient(900px 600px at 80% 80%, rgba(169,227,255,.18), transparent 62%),
-        linear-gradient(160deg, var(--bg1), var(--bg2));
-      overflow:hidden;
-    }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
 
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-    }
+        /* Navigare */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .card{
-      width:min(960px, 100%);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid var(--line);
-      border-radius:calc(var(--r) + 6px);
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(500px 240px at 30% 0%, rgba(126,203,255,.22), transparent 60%),
-        radial-gradient(500px 240px at 90% 30%, rgba(169,227,255,.18), transparent 55%);
-      pointer-events:none;
-      filter: blur(0.2px);
-    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
 
-    .inner{
-      position:relative;
-      padding:34px 32px 26px;
-      display:grid;
-      grid-template-columns: 1.25fr .95fr;
-      gap:22px;
-    }
+        .logo span {
+            color: var(--accent);
+        }
 
-    @media (max-width: 820px){
-      .inner{grid-template-columns:1fr}
-    }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(126,203,255,.28);
-      background:rgba(126,203,255,.10);
-      color:var(--accent2);
-      font-size:13px;
-      letter-spacing:.2px;
-      width:max-content;
-    }
+        nav li {
+            margin-left: 20px;
+        }
 
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:var(--accent);
-      box-shadow:0 0 0 6px rgba(126,203,255,.14);
-    }
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-    h1{
-      margin:14px 0 10px;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height:1.08;
-      letter-spacing:-.4px;
-    }
+        nav a:hover {
+            color: var(--primary);
+        }
 
-    .lead{
-      margin:0;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.55;
-      max-width:55ch;
-    }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #2a9d8f 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+        }
 
-    .message{
-      margin-top:16px;
-      padding:14px 14px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.12);
-      border-radius:14px;
-      color:rgba(234,243,255,.82);
-      font-size:14px;
-      line-height:1.5;
-    }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
 
-    .right{
-      border-left:1px solid rgba(255,255,255,.10);
-      padding-left:22px;
-    }
-    @media (max-width: 820px){
-      .right{border-left:none; padding-left:0; border-top:1px solid rgba(255,255,255,.10); padding-top:18px}
-    }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            opacity: 0.9;
+        }
 
-    .countTitle{
-      margin:0 0 10px;
-      font-size:13px;
-      color:rgba(234,243,255,.70);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-    }
+        /* Secțiunea Audio - CRITICĂ */
+        .audio-meeting {
+            background: var(--white);
+            max-width: 900px;
+            margin: -40px auto 40px auto; /* Suprapunere peste Hero */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:10px;
-    }
+        .status-dot {
+            height: 15px;
+            width: 15px;
+            background-color: #2ecc71; /* Verde = Activ */
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
 
-    .tile{
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:14px 12px;
-      text-align:center;
-    }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
 
-    .num{
-      font-variant-numeric: tabular-nums;
-      font-size:28px;
-      letter-spacing:-.4px;
-      color:var(--accent2);
-      margin:0;
-    }
+        .join-btn {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
 
-    .lbl{
-      margin:6px 0 0;
-      font-size:12px;
-      color:rgba(234,243,255,.70);
-    }
+        .join-btn:hover {
+            background-color: #cd7b5e;
+            transform: scale(1.05);
+        }
 
-    .meta{
-      margin-top:14px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      color:rgba(234,243,255,.70);
-      font-size:13px;
-    }
+        /* Grid Informativ */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
-    }
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
 
-    .foot{
-      position:relative;
-      padding:16px 32px 24px;
-      border-top:1px solid rgba(255,255,255,.10);
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      color:rgba(234,243,255,.62);
-      font-size:12.5px;
-    }
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
 
-    a{
-      color:var(--accent2);
-      text-decoration:none;
-      border-bottom:1px solid rgba(169,227,255,.35);
-    }
-    a:hover{opacity:.9}
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
 
-    .sr-only{
-      position:absolute;
-      width:1px;height:1px;
-      padding:0;margin:-1px;overflow:hidden;
-      clip:rect(0,0,0,0);
-      border:0;
-    }
-  </style>
+        .card p {
+            color: #666;
+        }
+
+        /* Disclaimer & Footer */
+        .disclaimer {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid #ffeeba;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            background-color: var(--text-dark);
+            color: #aaa;
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .audio-meeting {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <main class="card" role="main" aria-labelledby="title">
-      <div class="inner">
-        <section>
-          <div class="badge" aria-label="Status">
-            <span class="dot" aria-hidden="true"></span>
-            În construcție
-          </div>
 
-          <h1 id="title">Revenim pe 1 martie 2026.</h1>
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">AIR <span>SUPPORT</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#intalnire">Întâlnire Live</a></li>
+                    <li><a href="#info">Despre Alcool</a></li>
+                    <li><a href="#regulament">Regulament</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-          <p class="lead">
-            Lucrăm la o versiune nouă, mai rapidă și mai clară. Până atunci, pagina asta e un mic far albastru care-ți spune că nu ai ajuns degeaba aici. 💠
-          </p>
+    <section class="hero">
+        <h1>Respiră. Ești în siguranță.</h1>
+        <p>Comunitatea AIR Support este aici pentru a te ajuta să te eliberezi de sub influența alcoolului. Anonim. Gratuit. Zilnic.</p>
+    </section>
 
-          <div class="message" role="note">
-            <strong>Mesaj pentru vizitatori:</strong><br />
-            Mulțumim că ne-ai găsit! În următoarea versiune vei avea informațiile organizate, un design modern și acces mai ușor la tot ce contează.
-            Dacă ai ajuns aici dintr-un link vechi, revino după lansare și va fi totul “la locul lui”.
-          </div>
+    <!-- ZONA DE ÎNTÂLNIRE LIVE -->
+    <section id="intalnire">
+        <div class="audio-meeting">
+            <h2>🎧 Camera de Suport Audio</h2>
+            <p>Intră în conferința noastră anonimă. Nu este nevoie de cont, parolă sau cameră video.</p>
+            
+            <div style="margin: 20px 0; background: #f8f9fa; padding: 15px; border-radius: 5px; display: inline-block;">
+                <strong>Orar Zilnic:</strong> 19:00 - 21:00 (Ora României)
+            </div>
+            
+            <br>
+            <!-- Link Jitsi securizat prin URL -->
+            <!-- Utilizatorul va fi redirectionat catre o camera cu microfonul oprit initial -->
+            <a href="https://meet.jit.si/AIR-Support-Romania-Anonim#config.startWithAudioMuted=true&config.startWithVideoMuted=true" target="_blank" class="join-btn">
+                <span class="status-dot"></span> Intră în Discuție Acum
+            </a>
+            
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #777;">
+                *Vei fi redirecționat către platforma securizată Jitsi. Poți folosi un nume fals.
+            </p>
+        </div>
+    </section>
+
+    <div class="container" id="info">
+        <h2 style="text-align: center; color: var(--text-dark);">De ce să te oprești?</h2>
+        
+        <div class="info-section">
+            <div class="card">
+                <h3>🧪 Capcana Chimică</h3>
+                <p>Alcoolul modifică chimia creierului. Ceea ce începe ca o "plăcere" devine o necesitate biologică. Noi te ajutăm să înțelegi mecanismul din spatele nevoii de a bea.</p>
+            </div>
+            <div class="card">
+                <h3>💔 Iluzia Controlului</h3>
+                <p>Mulți cred că se pot opri oricând. Dacă ai încercat să te oprești și nu ai reușit, nu ești slab, ci te confrunți cu o boală progresivă.</p>
+            </div>
+            <div class="card">
+                <h3>🤝 Puterea Grupului</h3>
+                <p>Singurătatea este cel mai bun prieten al dependenței. Aici găsești oameni care au trecut fix prin ce treci tu acum și care au reușit să rămână treji.</p>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Notă Importantă:</strong> AIR Support este un grup de suport reciproc, nu un serviciu medical. Dacă ai simptome grave de sevraj (tremurături puternice, halucinații, puls accelerat), mergi urgent la spital sau sună la 112. Sevrajul alcoolic poate fi fatal fără asistență medicală.
+        </div>
+
+        <section id="regulament" style="margin-top: 50px;">
+            <h3>Regulamentul Grupului</h3>
+            <ul style="line-height: 1.8;">
+                <li><strong>Anonimitate:</strong> Ce se discută aici, rămâne aici.</li>
+                <li><strong>Respect:</strong> Nu judecăm recăderile. Nu ținem predici.</li>
+                <li><strong>Sobrietate la microfon:</strong> Te rugăm să nu intervii audio dacă ai consumat alcool în ultimele ore. Ești binevenit să asculți, dar te rugăm să nu vorbești pentru a nu trigera ceilalți membri.</li>
+            </ul>
         </section>
+    </div>
 
-        <aside class="right" aria-label="Countdown">
-          <p class="countTitle">Countdown până la lansare</p>
+    <footer>
+        <p>&copy; 2024 AIR Support România. Toate drepturile rezervate.</p>
+        <p>Un proiect găzduit liber pentru comunitate.</p>
+    </footer>
 
-          <div class="grid" aria-live="polite">
-            <div class="tile">
-              <p class="num" id="d">--</p>
-              <p class="lbl">Zile</p>
-            </div>
-            <div class="tile">
-              <p class="num" id="h">--</p>
-              <p class="lbl">Ore</p>
-            </div>
-            <div class="tile">
-              <p class="num" id="m">--</p>
-              <p class="lbl">Minute</p>
-            </div>
-            <div class="tile">
-              <p class="num" id="s">--</p>
-              <p class="lbl">Secunde</p>
-            </div>
-          </div>
-
-          <div class="meta">
-            <span class="pill">🗓️ 1 martie 2026</span>
-            <span class="pill">⏰ 00:00</span>
-            <span class="pill">🌍 Europe/Bucharest</span>
-          </div>
-
-          <p class="sr-only" id="liveText">Se actualizează countdown-ul.</p>
-        </aside>
-      </div>
-
-      <footer class="foot">
-        <span>© <span id="year"></span> • Toate drepturile rezervate</span>
-        <span>Ai nevoie urgent de info? Scrie-ne: <a href="mailto:contact@exemplu.ro">aircontactro@gmail.com</a></span>
-      </footer>
-    </main>
-  </div>
-
-  <script>
-    // Setări: țintă în fusul Europe/Bucharest (UTC+2 iarna / UTC+3 vara).
-    // Pentru a evita confuziile de fus, folosim un string ISO cu offset +02:00,
-    // deoarece pe 1 Martie 2026 România e încă la ora standard (EET, +02:00).
-    const target = new Date("2026-03-01T00:00:00+02:00");
-
-    const elD = document.getElementById("d");
-    const elH = document.getElementById("h");
-    const elM = document.getElementById("m");
-    const elS = document.getElementById("s");
-    const elYear = document.getElementById("year");
-
-    elYear.textContent = new Date().getFullYear();
-
-    function pad2(n){ return String(n).padStart(2,"0"); }
-
-    function tick(){
-      const now = new Date();
-      let diff = target.getTime() - now.getTime();
-
-      if (diff <= 0){
-        elD.textContent = "00";
-        elH.textContent = "00";
-        elM.textContent = "00";
-        elS.textContent = "00";
-        document.getElementById("title").textContent = "Am lansat! 🎉";
-        return;
-      }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / (3600 * 24));
-      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      elD.textContent = pad2(days);
-      elH.textContent = pad2(hours);
-      elM.textContent = pad2(minutes);
-      elS.textContent = pad2(seconds);
-    }
-
-    tick();
-    setInterval(tick, 250);
-  </script>
 </body>
 </html>
