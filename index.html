@@ -1,52 +1,33 @@
-code
-Html
 <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AIR Support - Comunitate anonimă pentru recuperare din alcoolism. Întâlniri audio zilnice, resurse și sprijin gratuit.">
     <title>AIR Support - Recuperare Anonimă</title>
-    <!-- Favicon (poți adăuga un icon mai târziu) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌬️</text></svg>">
+    <!-- Scriptul Jitsi pentru integrare -->
+    <script src='https://meet.jit.si/external_api.js'></script>
     
     <style>
-        /* --- DESIGN: Aerisit, Calm, Serios --- */
         :root {
-            --primary: #006d77; /* Turcoaz închis - stabilitate */
-            --secondary: #83c5be; /* Turcoaz deschis - calm */
-            --accent: #e29578; /* Culoare caldă pentru acțiuni */
+            --primary: #006d77;
+            --accent: #e29578;
             --bg-light: #edf6f9;
             --text-dark: #2d3436;
-            --white: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-light);
             color: var(--text-dark);
-            line-height: 1.6;
         }
 
-        /* Navigare */
+        /* --- Header --- */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1rem 20px;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -57,249 +38,218 @@ Html
             font-weight: bold;
             color: var(--primary);
             text-decoration: none;
-            letter-spacing: 1px;
         }
 
-        .logo span {
-            color: var(--accent);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav li {
-            margin-left: 20px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #2a9d8f 100%);
-            color: var(--white);
-            padding: 80px 20px;
+        /* --- Zona Principală --- */
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .welcome-text {
+            margin-bottom: 30px;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            opacity: 0.9;
-        }
-
-        /* Secțiunea Audio - CRITICĂ */
-        .audio-meeting {
-            background: var(--white);
-            max-width: 900px;
-            margin: -40px auto 40px auto; /* Suprapunere peste Hero */
-            padding: 40px;
+        /* --- Containerul pentru Conferință --- */
+        #jitsi-container {
+            height: 600px;
+            width: 100%;
+            background-color: #000;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            text-align: center;
-            position: relative;
+            overflow: hidden;
+            display: none; /* Ascuns până intră cineva */
+            margin-bottom: 20px;
         }
 
-        .status-dot {
-            height: 15px;
-            width: 15px;
-            background-color: #2ecc71; /* Verde = Activ */
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
-        }
-
-        .join-btn {
-            background-color: var(--accent);
-            color: var(--white);
+        /* --- Butonul de Start --- */
+        .btn-start {
+            background-color: var(--primary);
+            color: white;
             padding: 15px 40px;
             font-size: 1.2rem;
+            border: none;
             border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 20px;
-            transition: transform 0.2s, background-color 0.2s;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .join-btn:hover {
-            background-color: #cd7b5e;
-            transform: scale(1.05);
+        .btn-start:hover {
+            background-color: #004d55;
         }
 
-        /* Grid Informativ */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
+        /* --- Zona ADMIN (Ascunsă) --- */
+        #admin-panel {
+            display: none; /* Ascuns implicit */
+            background: #fff;
+            border: 2px solid var(--accent);
             padding: 20px;
-        }
-
-        .info-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
             margin-top: 50px;
-        }
-
-        .card {
-            background: var(--white);
-            padding: 30px;
             border-radius: 8px;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: left;
         }
 
-        .card h3 {
-            margin-top: 0;
-            color: var(--primary);
+        .admin-input {
+            padding: 10px;
+            width: 70%;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
-        .card p {
-            color: #666;
-        }
-
-        /* Disclaimer & Footer */
-        .disclaimer {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.9rem;
-            border: 1px solid #ffeeba;
+        .btn-admin {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         footer {
-            text-align: center;
-            padding: 40px 20px;
             margin-top: 50px;
-            background-color: var(--text-dark);
-            color: #aaa;
-        }
-
-        /* Responsive Mobile */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-            }
-            nav ul {
-                margin-top: 15px;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .audio-meeting {
-                margin: 20px;
-                padding: 20px;
-            }
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            cursor: pointer; /* Pentru a sugera click pe copyright */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="nav-container">
-            <a href="#" class="logo">AIR <span>SUPPORT</span></a>
-            <nav>
-                <ul>
-                    <li><a href="#intalnire">Întâlnire Live</a></li>
-                    <li><a href="#info">Despre Alcool</a></li>
-                    <li><a href="#regulament">Regulament</a></li>
-                </ul>
-            </nav>
-        </div>
+        <a href="#" class="logo">AIR SUPPORT</a>
+        <div id="meeting-status" style="color: green; font-weight: bold;">● Online</div>
     </header>
 
-    <section class="hero">
-        <h1>Respiră. Ești în siguranță.</h1>
-        <p>Comunitatea AIR Support este aici pentru a te ajuta să te eliberezi de sub influența alcoolului. Anonim. Gratuit. Zilnic.</p>
-    </section>
-
-    <!-- ZONA DE ÎNTÂLNIRE LIVE -->
-    <section id="intalnire">
-        <div class="audio-meeting">
-            <h2>🎧 Camera de Suport Audio</h2>
-            <p>Intră în conferința noastră anonimă. Nu este nevoie de cont, parolă sau cameră video.</p>
-            
-            <div style="margin: 20px 0; background: #f8f9fa; padding: 15px; border-radius: 5px; display: inline-block;">
-                <strong>Orar Zilnic:</strong> 19:00 - 21:00 (Ora României)
-            </div>
-            
-            <br>
-            <!-- Link Jitsi securizat prin URL -->
-            <!-- Utilizatorul va fi redirectionat catre o camera cu microfonul oprit initial -->
-            <a href="https://meet.jit.si/AIR-Support-Romania-Anonim#config.startWithAudioMuted=true&config.startWithVideoMuted=true" target="_blank" class="join-btn">
-                <span class="status-dot"></span> Intră în Discuție Acum
-            </a>
-            
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #777;">
-                *Vei fi redirecționat către platforma securizată Jitsi. Poți folosi un nume fals.
-            </p>
-        </div>
-    </section>
-
-    <div class="container" id="info">
-        <h2 style="text-align: center; color: var(--text-dark);">De ce să te oprești?</h2>
+    <div class="main-container">
         
-        <div class="info-section">
-            <div class="card">
-                <h3>🧪 Capcana Chimică</h3>
-                <p>Alcoolul modifică chimia creierului. Ceea ce începe ca o "plăcere" devine o necesitate biologică. Noi te ajutăm să înțelegi mecanismul din spatele nevoii de a bea.</p>
-            </div>
-            <div class="card">
-                <h3>💔 Iluzia Controlului</h3>
-                <p>Mulți cred că se pot opri oricând. Dacă ai încercat să te oprești și nu ai reușit, nu ești slab, ci te confrunți cu o boală progresivă.</p>
-            </div>
-            <div class="card">
-                <h3>🤝 Puterea Grupului</h3>
-                <p>Singurătatea este cel mai bun prieten al dependenței. Aici găsești oameni care au trecut fix prin ce treci tu acum și care au reușit să rămână treji.</p>
-            </div>
+        <div class="welcome-text" id="welcome-message">
+            <h1>Bine ai venit la AIR Support</h1>
+            <p>Aceasta este o zonă sigură, exclusiv audio.</p>
+            <p>Camera video este dezactivată pentru toți participanții pentru a asigura anonimatul.</p>
+            
+            <button class="btn-start" onclick="startMeeting('CameraPublicaAIR')">
+                🎧 Intră în Întâlnirea Publică
+            </button>
         </div>
 
-        <div class="disclaimer">
-            <strong>Notă Importantă:</strong> AIR Support este un grup de suport reciproc, nu un serviciu medical. Dacă ai simptome grave de sevraj (tremurături puternice, halucinații, puls accelerat), mergi urgent la spital sau sună la 112. Sevrajul alcoolic poate fi fatal fără asistență medicală.
-        </div>
+        <!-- Aici va apărea conferința -->
+        <div id="jitsi-container"></div>
 
-        <section id="regulament" style="margin-top: 50px;">
-            <h3>Regulamentul Grupului</h3>
-            <ul style="line-height: 1.8;">
-                <li><strong>Anonimitate:</strong> Ce se discută aici, rămâne aici.</li>
-                <li><strong>Respect:</strong> Nu judecăm recăderile. Nu ținem predici.</li>
-                <li><strong>Sobrietate la microfon:</strong> Te rugăm să nu intervii audio dacă ai consumat alcool în ultimele ore. Ești binevenit să asculți, dar te rugăm să nu vorbești pentru a nu trigera ceilalți membri.</li>
+        <!-- INSTRUCȚIUNI -->
+        <div style="margin-top: 30px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h3>Cum funcționează?</h3>
+            <ul>
+                <li>Nu te vedem. Camera video este oprită din sistem.</li>
+                <li>Nu trebuie să îți faci cont.</li>
+                <li>Scrie-ți un nume (poate fi un pseudonim) când ți se cere.</li>
             </ul>
-        </section>
+        </div>
+
+        <!-- ZONA ADMINISTRARE (Secretă) -->
+        <div id="admin-panel">
+            <h3>🔧 Panou Administrator</h3>
+            <p>Creează o cameră nouă (ex: SedintaDeSeara, GrupFemei, etc.)</p>
+            <input type="text" id="new-room-name" class="admin-input" placeholder="Numele camerei (fără spații)">
+            <button class="btn-admin" onclick="createAdminRoom()">Creează & Intră ca Moderator</button>
+            <p><small>*Fiind primul care intră, vei fi moderator. Setează o parolă din meniul 'Security Options' din dreapta jos odată intrat.</small></p>
+        </div>
+
     </div>
 
-    <footer>
-        <p>&copy; 2024 AIR Support România. Toate drepturile rezervate.</p>
-        <p>Un proiect găzduit liber pentru comunitate.</p>
+    <footer onclick="toggleAdminLogin()">
+        &copy; 2024 AIR Support România. (Admin Login)
     </footer>
 
+    <script>
+        let api = null;
+
+        // Această funcție pornește conferința
+        function startMeeting(roomName) {
+            // Ascundem textul de bun venit și arătăm containerul video
+            document.getElementById('welcome-message').style.display = 'none';
+            document.getElementById('jitsi-container').style.display = 'block';
+
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: roomName,
+                width: '100%',
+                height: 600,
+                parentNode: document.querySelector('#jitsi-container'),
+                configOverwrite: {
+                    startWithVideoMuted: true, // Pornește fără video
+                    startAudioOnly: true,      // Forțează modul audio-only
+                    disableDeepLinking: true,  // Nu cere instalarea aplicației mobile
+                    prejoinPageEnabled: false  // Intră direct
+                },
+                interfaceConfigOverwrite: {
+                    // Ascundem butonul de cameră video complet!
+                    TOOLBAR_BUTTONS: [
+                        'microphone', 'chat', 'raisehand', 'tileview', 'hangup', 
+                        'participants-pane', 'settings'
+                    ],
+                    // Ascundem alte elemente vizuale inutile
+                    filmStripOnly: true,
+                    SHOW_JITSI_WATERMARK: false
+                },
+                userInfo: {
+                    displayName: 'Vizitator Anonim'
+                }
+            };
+
+            api = new JitsiMeetExternalAPI(domain, options);
+            
+            // Forțăm oprirea videoului dacă cumva se activează
+            api.addEventListener('videoConferenceJoined', () => {
+                api.executeCommand('toggleVideo');
+            });
+        }
+
+        // --- FUNCȚII ADMIN ---
+
+        // 1. Logica pentru a afișa panoul secret
+        function toggleAdminLogin() {
+            // Verificăm dacă panoul e deja vizibil
+            if(document.getElementById('admin-panel').style.display === 'block') {
+                return;
+            }
+
+            // Cerem parola (simplă, client-side)
+            // Poți schimba 'AIR2024' cu ce parolă vrei tu
+            let password = prompt("Introduceți parola de administrator:");
+            
+            if (password === "AIR2024") {
+                alert("Autentificare reușită!");
+                document.getElementById('admin-panel').style.display = 'block';
+                // Facem scroll jos la panou
+                document.getElementById('admin-panel').scrollIntoView();
+            } else if (password != null) {
+                alert("Parolă greșită.");
+            }
+        }
+
+        // 2. Crearea unei camere noi de către Admin
+        function createAdminRoom() {
+            let roomName = document.getElementById('new-room-name').value;
+            if(!roomName) {
+                alert("Te rog scrie un nume pentru cameră.");
+                return;
+            }
+            
+            // Curățăm numele de spații și caractere ciudate pentru a fi un link valid
+            roomName = "AIR-" + roomName.replace(/[^a-zA-Z0-9]/g, "");
+
+            // Dacă există deja o conferință deschisă, o închidem
+            if(api) {
+                api.dispose();
+            }
+
+            // Pornim noua conferință
+            startMeeting(roomName);
+        }
+    </script>
 </body>
 </html>
