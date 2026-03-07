@@ -4,19 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIR Support - Comunitate & Recuperare</title>
-    <script src='https://meet.jit.si/external_api.js'></script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Configurația ta Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBz75HiehF3zMaEPxkX5-_vq9i71lx5uiA",
+            authDomain: "airsupport-42ebd.firebaseapp.com",
+            projectId: "airsupport-42ebd",
+            storageBucket: "airsupport-42ebd.firebasestorage.app",
+            messagingSenderId: "56777999661",
+            appId: "1:56777999661:web:b6ce12e056d64dc4f6bfa4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- FUNCȚIA TRIMITERE MESAJ CHAT ---
+        window.sendMessage = async () => {
+            const input = document.getElementById('chat-input');
+            const user = document.getElementById('username').value || "Vizitator";
+            if (input.value.trim() !== "") {
+                try {
+                    await addDoc(collection(db, "messages"), {
+                        text: input.value,
+                        user: user,
+                        timestamp: serverTimestamp()
+                    });
+                    input.value = "";
+                } catch (e) { alert("Eroare: Verifică dacă ai activat Firestore în Test Mode!"); }
+            }
+        };
+
+        // Ascultă mesajele noi în timp real
+        onSnapshot(query(collection(db, "messages"), orderBy("timestamp", "asc")), (snapshot) => {
+            const chatWin = document.getElementById('chat-window');
+            chatWin.innerHTML = "";
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                chatWin.innerHTML += `<div style="margin-bottom:8px;"><strong>${data.user}:</strong> ${data.text}</div>`;
+            });
+            chatWin.scrollTop = chatWin.scrollHeight;
+        });
+
+        // --- FUNCȚIA PUBLICARE ARTICOL (BLOG) ---
+        window.publishArticle = async () => {
+            const title = document.getElementById('art-title').value;
+            const content = document.getElementById('art-content').value;
+            const pass = prompt("Introdu parola de administrator:");
+            
+            if(pass === "AIR2024") {
+                try {
+                    await addDoc(collection(db, "articles"), {
+                        title: title,
+                        content: content,
+                        timestamp: serverTimestamp()
+                    });
+                    alert("Articol publicat cu succes!");
+                    document.getElementById('art-title').value = "";
+                    document.getElementById('art-content').value = "";
+                    showPage('page-edu'); // Te trimite la pagina de articole
+                } catch (e) { alert("Eroare la publicare!"); }
+            } else { 
+                alert("Parolă incorectă! Doar adminul poate posta."); 
+            }
+        };
+
+        // Încarcă articolele automat
+        onSnapshot(query(collection(db, "articles"), orderBy("timestamp", "desc")), (snapshot) => {
+            const blogCont = document.getElementById('blog-container');
+            blogCont.innerHTML = "";
+            if (snapshot.empty) {
+                blogCont.innerHTML = "<p>Încă nu sunt articole publicate.</p>";
+            }
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const date = data.timestamp ? data.timestamp.toDate().toLocaleDateString() : "Recent";
+                blogCont.innerHTML += `
+                    <div class="card">
+                        <h2 style="color:var(--primary);">${data.title}</h2>
+                        <p style="white-space: pre-wrap;">${data.content}</p>
+                        <hr style="border:0; border-top:1px solid #eee;">
+                        <small style="color:#888;">Publicat la: ${date}</small>
+                    </div>`;
+            });
+        });
+
+        // Funcția de navigare între pagini
+        window.showPage = (pageId) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            // Inchidem meniul pe mobil daca e cazul (optional)
+            window.scrollTo(0,0);
+        };
+    </script>
+
     <style>
         :root {
             --primary: #006d77;
-            --secondary: #83c5be;
-            --accent: #e29578;
             --bg: #edf6f9;
             --text: #2d3436;
             --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             display: flex;
             height: 100vh;
@@ -24,218 +119,29 @@
             color: var(--text);
         }
 
-        /* --- Navigație Laterală --- */
+        /* Navigare */
         nav {
-            width: 250px;
+            width: 240px;
             background: var(--primary);
             color: white;
             display: flex;
             flex-direction: column;
             padding: 20px 0;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         .nav-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
             text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
             margin-bottom: 30px;
-            color: var(--white);
+            letter-spacing: 1px;
         }
 
         .nav-link {
             padding: 15px 25px;
-            text-decoration: none;
             color: #daeef0;
+            text-decoration: none;
+            cursor: pointer;
             transition: 0.3s;
-            cursor: pointer;
-            border-left: 4px solid transparent;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-left: 4px solid var(--accent);
-        }
-
-        /* --- Conținut Principal --- */
-        main {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .page { display: none; }
-        .page.active { display: block; }
-
-        /* --- Carduri & Design --- */
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-emergency { background: #d63031; }
-
-        /* --- Stil Tabel --- */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        table th, table td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
-
-        /* --- Chat Mockup --- */
-        #chat-window {
-            height: 400px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            padding: 15px;
-            overflow-y: auto;
-            background: #f9f9f9;
-        }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="nav-logo">AIR SUPPORT</div>
-        <div class="nav-link active" onclick="showPage('page-chat')">💬 Comunitate (Chat)</div>
-        <div class="nav-link" onclick="showPage('page-meetings')">🎧 Întâlniri Audio</div>
-        <div class="nav-link" onclick="showPage('page-emergency')">🚨 Urgențe & Ajutor</div>
-        <div class="nav-link" onclick="showPage('page-edu')">📚 Despre Dependență</div>
-    </nav>
-
-    <main>
-        <div id="page-chat" class="page active">
-            <h1>Chat Comunitar</h1>
-            <div class="card">
-                <p>Loghează-te pentru a vorbi cu ceilalți membri.</p>
-                <div id="chat-auth">
-                    <input type="text" id="username" placeholder="Alege un pseudonim..." style="padding: 10px;">
-                    <button class="btn" onclick="joinChat()">Intră în Chat</button>
-                </div>
-                <div id="chat-section" style="display:none;">
-                    <div id="chat-window">
-                        <p><strong>Sistem:</strong> Bine ai venit în zona de suport!</p>
-                    </div>
-                    <input type="text" id="chat-input" placeholder="Scrie un mesaj..." style="width: 80%; padding: 10px;">
-                    <button class="btn">Trimite</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="page-meetings" class="page">
-            <h1>Întâlniri Audio Anonime</h1>
-            <div class="card">
-                <h3>Camera Publică</h3>
-                <p>Discuții vocale fără video. Anonimat garantat.</p>
-                <button class="btn" onclick="startJitsi()">Intră acum</button>
-                <div id="jitsi-container" style="margin-top:20px; height: 500px; display:none;"></div>
-            </div>
-        </div>
-
-        <div id="page-emergency" class="page">
-            <h1>Ajutor Imediat</h1>
-            <div class="card">
-                <h2 style="color: #d63031;">Ai nevoie de ajutor chiar acum?</h2>
-                <table>
-                    <tr>
-                        <th>Serviciu</th>
-                        <th>Telefon</th>
-                        <th>Program</th>
-                    </tr>
-                    <tr>
-                        <td><b>Urgențe (Ambulanță/Poliție)</b></td>
-                        <td><b style="font-size: 1.2rem;">112</b></td>
-                        <td>24/7</td>
-                    </tr>
-                    <tr>
-                        <td>AlcoLine (Suport Dependență)</td>
-                        <td>021 9335</td>
-                        <td>L-V 10:00-20:00</td>
-                    </tr>
-                    <tr>
-                        <td>TelVerde Antidrog</td>
-                        <td>0800 870 070</td>
-                        <td>L-V 08:00-16:00</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="card">
-                <h3>Link-uri Utile</h3>
-                <ul>
-                    <li><a href="#">Găsește un grup Alcoolicii Anonimi (AA)</a></li>
-                    <li><a href="#">Clinici de dezintoxicare recomandate</a></li>
-                    <li><a href="#">Resurse pentru familii (Al-Anon)</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="page-edu" class="page">
-            <h1>Educație & Impact</h1>
-            <div class="card">
-                <h2>Alcoolul și Organismul</h2>
-                <p>Dependența nu este o lipsă de voință, ci o <b>boală progresivă</b> a creierului.</p>
-                <ul>
-                    <li><b>Ficat:</b> Riscul de ciroză și steatoză hepatică.</li>
-                    <li><b>Inimă:</b> Hipertensiune și risc crescut de infarct.</li>
-                    <li><b>Creier:</b> Pierderi de memorie și degradarea proceselor cognitive.</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h2>Impactul asupra celor dragi</h2>
-                <p>Pentru fiecare persoană dependentă, cel puțin 4-5 persoane din jur (familie, copii, prieteni) sunt afectate emoțional și social.</p>
-                <blockquote>"Alcoolismul este boala întregii familii."</blockquote>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function showPage(pageId) {
-            // Ascunde toate paginile
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Dezactivează link-urile din nav
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
-            // Afișează pagina cerută
-            document.getElementById(pageId).classList.add('active');
-            // Marchează link-ul ca activ
-            event.currentTarget.classList.add('active');
-        }
-
-        function joinChat() {
-            let user = document.getElementById('username').value;
-            if(user.length > 2) {
-                document.getElementById('chat-auth').style.display = 'none';
-                document.getElementById('chat-section').style.display = 'block';
-            } else {
-                alert("Te rugăm să alegi un nume.");
-            }
-        }
-
-        function startJitsi() {
-            document.getElementById('jitsi-container').style.display = 'block';
-            const domain = 'meet.jit.si';
-            const options = {
-                roomName: 'AIR-Support-Public-RO',
-                parentNode: document.querySelector('#jitsi-container'),
-                configOverwrite: { startWithVideoMuted: true, startAudioOnly: true },
-                interfaceConfigOverwrite: { TOOLBAR_BUTTONS: ['microphone', 'chat', 'hangup'] }
-            };
-            new JitsiMeetExternalAPI(domain, options);
-        }
-    </script>
-</body>
-</html>
+            border-
