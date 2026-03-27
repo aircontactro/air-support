@@ -5,108 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIR Support | Management Premium Airbnb</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --accent: #00f2fe;    /* Cyan electric */
-            --accent-dark: #4facfe;
-            --dark-bg: #0f172a;   /* Slate 900 */
-            --card-bg: #1e293b;   /* Slate 800 */
-            --text-main: #f8fafc;
+            --bg-dark: #0a0f1a; /* Un negru-albăstrui foarte închis, premium */
+            --accent-neon: #00f2fe;
+            --text-main: #ffffff;
             --text-dim: #94a3b8;
-            --glass: rgba(255, 255, 255, 0.03);
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            background-color: var(--dark-bg);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* --- NAVIGARE --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 8%;
-            position: sticky;
-            top: 0;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
+            padding: 20px 8%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo {
             font-weight: 800;
-            font-size: 1.6rem;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            font-size: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--accent-neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
         }
 
-        .nav-links { display: flex; gap: 30px; }
-        .nav-link { 
-            text-decoration: none; 
-            color: var(--text-dim); 
-            font-weight: 500; 
-            font-size: 0.95rem;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .nav-link:hover { color: var(--accent); }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-link { color: var(--text-dim); text-decoration: none; cursor: pointer; font-size: 0.9rem; }
+        .nav-link:hover { color: var(--accent-neon); }
 
-        /* --- LAYOUT --- */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 5% 120px;
-        }
+        main { max-width: 1200px; margin: 0 auto; padding: 60px 5%; }
 
-        .page { display: none; animation: slideUp 0.6s ease-out forwards; }
-        .page.active { display: block; }
+        /* REPARAȚIA: Prima pagină e vizibilă default, celelalte sunt ascunse */
+        .page { display: none; animation: fadeIn 0.8s ease; }
+        #home { display: block; } 
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- HERO SECTION --- */
-        .hero { text-align: center; margin-bottom: 100px; }
-        .hero h1 { 
-            font-size: clamp(2.5rem, 8vw, 4.5rem); 
-            font-weight: 800; 
-            margin-bottom: 20px; 
-            line-height: 1.1;
-            letter-spacing: -2px;
-        }
-        .hero p { 
-            color: var(--text-dim); 
-            font-size: 1.25rem; 
-            max-width: 700px; 
-            margin: 0 auto; 
-        }
+        .hero { text-align: center; margin-bottom: 60px; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; margin-bottom: 10px; line-height: 1.1; }
+        .hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        /* --- GRID & CARDS --- */
-        .grid { 
-            display: grid; 
-            grid-template-columns: 1.2fr 0.8fr; 
-            gap: 40px; 
-            align-items: start;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
 
         .card {
-            background: var(--card-bg);
-            padding: 45px;
-            border-radius:
+            background: rgba(255,255,255,0.03);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .calculator-card { border: 1px solid rgba(0, 242, 254, 0.3); box-shadow: 0 0 20px rgba(0, 242, 254, 0.05); }
+
+        input[type="number"] {
+            width: 100%; background: #000; border: 1px solid #334155;
+            padding: 15px; border-radius: 12px; color: white; font-size: 1.2rem; margin: 15px 0 25px;
+        }
+
+        input[type="range"] { width: 100%; accent-color: var(--accent-neon); cursor: pointer; }
+
+        .res-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 500; }
+        .total { font-size: 1.8rem; font-weight: 800; color: var(--accent-neon); border-top: 1px solid #334155; padding-top: 15px; margin-top: 15px; }
+
+        .btn {
+            background: var(--accent-neon); color: #000; border: none; padding: 18px;
+            border-radius: 14px; font-weight: 700; width: 100%; cursor: pointer; margin-top: 20px;
+            transition: 0.3s; font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2); }
+
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 15px; display: flex; gap: 10px; color: var(--text-dim); }
+        li::before { content: "✓"; color: var(--accent-neon); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" onclick="showPage('home')">AIR Support.</div>
+        <div class="nav-links">
+            <div class="nav-link" onclick="showPage('home')">Home</div>
+            <div class="nav-link" onclick="showPage('contract')">Contract</div>
+            <div class="nav-link" onclick="showPage('contact')">Contact</div>
+        </div>
+    </nav>
+
+    <main>
+        <div id="home" class="page">
+            <section class="hero">
+                <h1>Venit Pasiv.<br><span style="color: var(--accent-neon)">Fără Efort.</span></h1>
+                <p>Gestionăm proprietatea ta pe Airbnb & Booking. Tu doar încasezi profitul lunar.</p>
+            </section>
+
+            <div class="grid">
+                <div class="card calculator-card">
+                    <h3 style="margin:0">Calculator Profit</h3>
+                    <label style="font-size: 0.8rem; color: var(--text-dim);">PREȚ PE NOAPTE (RON)</label>
+                    <input type="number" id="priceInput" value="400" oninput="calculate()">
+
+                    <label style="font-size: 0.8rem; color: var(--text-dim);">NOPȚI / LUNĂ: <span id="daysVal" style="color:#fff">20</span></label>
+                    <input type="range" id="daysInput" min="1" max="30" value="20" oninput="calculate()">
+
+                    <div class="res-row" style="margin-top:20px"><span>Venit Brut</span><span>9,000 RON</span></div>
+                    <div class="res-row total"><span>Profit NET</span><span id="net">7,200 RON</span></div>
+                    
+                    <button class="btn" onclick="showPage('contact')">Vreau Management</button>
+                </div>
+
+                <div class="card">
+                    <h3>Ce oferim?</h3>
+                    <ul>
+                        <li>Poze profesionale & Listare</li>
+                        <li>Curățenie & Igienizare hotelieră</li>
+                        <li>Check-in 24/7 Smart Lock</li>
+                        <li>Management prețuri & Rezervări</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="page">
+            <div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+                <h2>Contactează-ne</h2>
+                <p>Lasă-ne un mesaj și te sunăm pentru o evaluare gratuită.</p>
+                <input type="text" placeholder="Nume" style="width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:1px solid #334155; background:#000; color:#fff;">
+                <input type="text" placeholder="Telefon" style="width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:1px solid #334155; background:#000; color:#fff;">
+                <button class="btn">Trimite</button>
+            </div>
+        </div>
+
+        <div id="contract" class="page">
+            <div class="card">
+                <h2>Contractul AIR Support</h2>
+                <p>Simplu și transparent:</p>
+                <ul>
+                    <li>Comision fix de 20% din încasări.</li>
+                    <li>Fără taxe de administrare fixe.</li>
+                    <li>Reziliere oricând cu preaviz 30 zile.</li>
+                </ul>
+                <button class="btn" style="width: auto;" onclick="showPage('home')">Înapoi</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function calculate() {
+            const price = document.getElementById('priceInput').value || 0;
+            const days = document.getElementById('daysInput').value;
+            document.getElementById('daysVal').innerText = days;
+
+            const total = price * days;
+            const net = total * 0.8; // Scădem 20% comision
+
+            document.getElementById('net').innerText = Math.round(net).toLocaleString() + " RON";
+        }
+
+        calculate();
+    </script>
+</body>
+</html>
