@@ -1,147 +1,46 @@
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIR Support - Comunitate & Recuperare</title>
+<div id="page-home" class="page active">
+    <h1>Transformă-ți apartamentul în profit pasiv</h1>
+    <div class="card" style="background: linear-gradient(135deg, #006d77, #83c5be); color: white;">
+        <h3>Calculator Venituri AIR Support</h3>
+        <label>Preț mediu pe noapte (RON):</label>
+        <input type="number" id="price-night" value="250" style="color: black;">
+        
+        <label>Nopți ocupate pe lună (estimat):</label>
+        <input type="range" id="nights-range" min="1" max="30" value="15" oninput="updateCalc()">
+        <span id="nights-val">15 nopți</span>
+
+        <div style="margin-top: 20px; font-size: 1.2rem;">
+            <strong>Venit lunar estimat: <span id="total-revenue">3750</span> RON</strong><br>
+            <small>Comision AIR Support (20%): <span id="our-fee">750</span> RON</small>
+            <hr>
+            <strong style="font-size: 1.5rem;">Profitul tău curat: <span id="net-profit">3000</span> RON</strong>
+        </div>
+    </div>
     
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <div class="card">
+        <h3>Ce facem noi pentru tine?</h3>
+        <ul>
+            <li>✅ Curățenie profesională după fiecare oaspete.</li>
+            <li>✅ Predarea și recuperarea cheilor (Check-in/out).</li>
+            <li>✅ Spălarea și călcarea lenjeriilor.</li>
+            <li>✅ Suport 24/7 pentru urgențe tehnice în locație.</li>
+        </ul>
+        <button onclick="showPage('page-admin')" style="width: 100%; background: #ffb703; color: #023047;">Vreau o ofertă personalizată</button>
+    </div>
+</div>
 
-        // Configurația ta Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBz75HiehF3zMaEPxkX5-_vq9i71lx5uiA",
-            authDomain: "airsupport-42ebd.firebaseapp.com",
-            projectId: "airsupport-42ebd",
-            storageBucket: "airsupport-42ebd.firebasestorage.app",
-            messagingSenderId: "56777999661",
-            appId: "1:56777999661:web:b6ce12e056d64dc4f6bfa4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // --- FUNCȚIA TRIMITERE MESAJ CHAT ---
-        window.sendMessage = async () => {
-            const input = document.getElementById('chat-input');
-            const user = document.getElementById('username').value || "Vizitator";
-            if (input.value.trim() !== "") {
-                try {
-                    await addDoc(collection(db, "messages"), {
-                        text: input.value,
-                        user: user,
-                        timestamp: serverTimestamp()
-                    });
-                    input.value = "";
-                } catch (e) { alert("Eroare: Verifică dacă ai activat Firestore în Test Mode!"); }
-            }
-        };
-
-        // Ascultă mesajele noi în timp real
-        onSnapshot(query(collection(db, "messages"), orderBy("timestamp", "asc")), (snapshot) => {
-            const chatWin = document.getElementById('chat-window');
-            chatWin.innerHTML = "";
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                chatWin.innerHTML += `<div style="margin-bottom:8px;"><strong>${data.user}:</strong> ${data.text}</div>`;
-            });
-            chatWin.scrollTop = chatWin.scrollHeight;
-        });
-
-        // --- FUNCȚIA PUBLICARE ARTICOL (BLOG) ---
-        window.publishArticle = async () => {
-            const title = document.getElementById('art-title').value;
-            const content = document.getElementById('art-content').value;
-            const pass = prompt("Introdu parola de administrator:");
-            
-            if(pass === "AIR2024") {
-                try {
-                    await addDoc(collection(db, "articles"), {
-                        title: title,
-                        content: content,
-                        timestamp: serverTimestamp()
-                    });
-                    alert("Articol publicat cu succes!");
-                    document.getElementById('art-title').value = "";
-                    document.getElementById('art-content').value = "";
-                    showPage('page-edu'); // Te trimite la pagina de articole
-                } catch (e) { alert("Eroare la publicare!"); }
-            } else { 
-                alert("Parolă incorectă! Doar adminul poate posta."); 
-            }
-        };
-
-        // Încarcă articolele automat
-        onSnapshot(query(collection(db, "articles"), orderBy("timestamp", "desc")), (snapshot) => {
-            const blogCont = document.getElementById('blog-container');
-            blogCont.innerHTML = "";
-            if (snapshot.empty) {
-                blogCont.innerHTML = "<p>Încă nu sunt articole publicate.</p>";
-            }
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                const date = data.timestamp ? data.timestamp.toDate().toLocaleDateString() : "Recent";
-                blogCont.innerHTML += `
-                    <div class="card">
-                        <h2 style="color:var(--primary);">${data.title}</h2>
-                        <p style="white-space: pre-wrap;">${data.content}</p>
-                        <hr style="border:0; border-top:1px solid #eee;">
-                        <small style="color:#888;">Publicat la: ${date}</small>
-                    </div>`;
-            });
-        });
-
-        // Funcția de navigare între pagini
-        window.showPage = (pageId) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            
-            // Inchidem meniul pe mobil daca e cazul (optional)
-            window.scrollTo(0,0);
-        };
-    </script>
-
-    <style>
-        :root {
-            --primary: #006d77;
-            --bg: #edf6f9;
-            --text: #2d3436;
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            background-color: var(--bg);
-            color: var(--text);
-        }
-
-        /* Navigare */
-        nav {
-            width: 240px;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 0;
-            flex-shrink: 0;
-        }
-
-        .nav-logo {
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-        }
-
-        .nav-link {
-            padding: 15px 25px;
-            color: #daeef0;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.3s;
-            border-
+<script>
+function updateCalc() {
+    const price = document.getElementById('price-night').value;
+    const nights = document.getElementById('nights-range').value;
+    document.getElementById('nights-val').innerText = nights + " nopți";
+    
+    const total = price * nights;
+    const fee = total * 0.20;
+    const net = total - fee;
+    
+    document.getElementById('total-revenue').innerText = total;
+    document.getElementById('our-fee').innerText = fee;
+    document.getElementById('net-profit').innerText = net;
+}
+</script>
