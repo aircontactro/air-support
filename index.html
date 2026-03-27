@@ -1,46 +1,112 @@
-<div id="page-home" class="page active">
-    <h1>Transformă-ți apartamentul în profit pasiv</h1>
-    <div class="card" style="background: linear-gradient(135deg, #006d77, #83c5be); color: white;">
-        <h3>Calculator Venituri AIR Support</h3>
-        <label>Preț mediu pe noapte (RON):</label>
-        <input type="number" id="price-night" value="250" style="color: black;">
-        
-        <label>Nopți ocupate pe lună (estimat):</label>
-        <input type="range" id="nights-range" min="1" max="30" value="15" oninput="updateCalc()">
-        <span id="nights-val">15 nopți</span>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIR Support | Management Premium Airbnb</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-        <div style="margin-top: 20px; font-size: 1.2rem;">
-            <strong>Venit lunar estimat: <span id="total-revenue">3750</span> RON</strong><br>
-            <small>Comision AIR Support (20%): <span id="our-fee">750</span> RON</small>
-            <hr>
-            <strong style="font-size: 1.5rem;">Profitul tău curat: <span id="net-profit">3000</span> RON</strong>
-        </div>
-    </div>
-    
-    <div class="card">
-        <h3>Ce facem noi pentru tine?</h3>
-        <ul>
-            <li>✅ Curățenie profesională după fiecare oaspete.</li>
-            <li>✅ Predarea și recuperarea cheilor (Check-in/out).</li>
-            <li>✅ Spălarea și călcarea lenjeriilor.</li>
-            <li>✅ Suport 24/7 pentru urgențe tehnice în locație.</li>
-        </ul>
-        <button onclick="showPage('page-admin')" style="width: 100%; background: #ffb703; color: #023047;">Vreau o ofertă personalizată</button>
-    </div>
-</div>
+    <style>
+        :root {
+            --accent: #00f2fe;    /* Cyan electric */
+            --accent-dark: #4facfe;
+            --dark-bg: #0f172a;   /* Slate 900 */
+            --card-bg: #1e293b;   /* Slate 800 */
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
 
-<script>
-function updateCalc() {
-    const price = document.getElementById('price-night').value;
-    const nights = document.getElementById('nights-range').value;
-    document.getElementById('nights-val').innerText = nights + " nopți";
-    
-    const total = price * nights;
-    const fee = total * 0.20;
-    const net = total - fee;
-    
-    document.getElementById('total-revenue').innerText = total;
-    document.getElementById('our-fee').innerText = fee;
-    document.getElementById('net-profit').innerText = net;
-}
-</script>
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGARE --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-link { 
+            text-decoration: none; 
+            color: var(--text-dim); 
+            font-weight: 500; 
+            font-size: 0.95rem;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav-link:hover { color: var(--accent); }
+
+        /* --- LAYOUT --- */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 5% 120px;
+        }
+
+        .page { display: none; animation: slideUp 0.6s ease-out forwards; }
+        .page.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero { text-align: center; margin-bottom: 100px; }
+        .hero h1 { 
+            font-size: clamp(2.5rem, 8vw, 4.5rem); 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+        .hero p { 
+            color: var(--text-dim); 
+            font-size: 1.25rem; 
+            max-width: 700px; 
+            margin: 0 auto; 
+        }
+
+        /* --- GRID & CARDS --- */
+        .grid { 
+            display: grid; 
+            grid-template-columns: 1.2fr 0.8fr; 
+            gap: 40px; 
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius:
