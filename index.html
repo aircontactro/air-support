@@ -3,280 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIR Support | Premium Property Management & Cleaning</title>
+    <title>AIR Support | Premium Property Care</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
-            emailjs.init("D4Gbqc3jypgDuA6E6");
-        })();
+        (function() { emailjs.init("D4Gbqc3jypgDuA6E6"); })();
     </script>
 
     <style>
         :root {
-            --gold: #c3a361; /* Un auriu mai stins, tip șampanie, mai elegant */
-            --gold-bright: #f1e0b5;
+            --gold: #c3a361;
             --dark: #000000;
-            --card-bg: #0a0a0a;
-            --border: rgba(195, 163, 97, 0.2);
-            --text-main: #e0e0e0;
+            --grey: #1a1a1a;
+            --border: rgba(195, 163, 97, 0.15);
         }
 
         body {
-            margin: 0; padding: 0; background-color: var(--dark); color: var(--text-main);
-            font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; scroll-behavior: smooth;
+            margin: 0; background: var(--dark); color: #fff;
+            font-family: 'Montserrat', sans-serif; line-height: 1.6;
         }
 
-        h1, h2, h3 {
-            font-family: 'Cormorant Garamond', serif; font-weight: 700; color: #fff; margin-top: 0;
-        }
+        h1, h2, h3 { font-family: 'Cormorant+Garamond', serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- LOGO GEOMETRIC MINIMALIST --- */
-        .logo-container { display: flex; align-items: center; gap: 15px; cursor: pointer; text-decoration: none; }
-        .logo-visual {
-            width: 30px; height: 30px; border: 2px solid var(--gold);
-            transform: rotate(45deg); position: relative;
-            box-shadow: 0 0 10px rgba(195, 163, 97, 0.3);
-        }
-        .logo-visual::after {
-            content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
-            background-color: var(--gold); opacity: 0.8;
-        }
-
-        /* --- NAVIGATION --- */
+        /* NAV */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 8%; background: rgba(0,0,0,0.95);
-            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 9999;
-            backdrop-filter: blur(10px);
+            padding: 20px 8%; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; background: rgba(0,0,0,0.9); z-index: 1000;
         }
-        .nav-links { display: flex; gap: 25px; }
-        .nav-link { 
-            color: #bbb; text-decoration: none; font-size: 11px; font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s;
+        .logo { cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .logo-box { width: 25px; height: 25px; border: 1px solid var(--gold); transform: rotate(45deg); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-item { font-size: 10px; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; color: #888; transition: 0.3s; }
+        .nav-item:hover { color: var(--gold); }
+
+        /* STRUCTURE */
+        section { display: none; padding: 80px 8%; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.8s forwards; }
+        .active { display: block !important; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* PORTOFOLIU BEFORE/AFTER */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+        .comparison-container { border: 1px solid var(--border); padding: 15px; background: var(--grey); }
+        .ba-images { display: flex; gap: 5px; margin-bottom: 15px; }
+        .ba-box { flex: 1; position: relative; height: 250px; overflow: hidden; background: #222; }
+        .ba-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .ba-tag { position: absolute; bottom: 10px; left: 10px; font-size: 9px; background: var(--gold); color: #000; padding: 2px 8px; font-weight: 800; }
+
+        /* TARIFE */
+        .pricing-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        .pricing-table th { text-align: left; color: var(--gold); font-size: 11px; padding: 15px; border-bottom: 1px solid var(--border); }
+        .pricing-table td { padding: 20px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .price-tag { color: var(--gold); font-weight: 600; font-family: 'Cormorant Garamond'; font-size: 1.2rem; }
+
+        /* BUTTONS & FORMS */
+        .btn-gold { 
+            background: transparent; border: 1px solid var(--gold); color: var(--gold); 
+            padding: 15px 30px; font-size: 10px; letter-spacing: 2px; cursor: pointer; 
+            text-transform: uppercase; width: 100%; transition: 0.4s;
         }
-        .nav-link:hover { color: var(--gold); text-shadow: 0 0 5px var(--gold); }
+        .btn-gold:hover { background: var(--gold); color: #000; }
 
-        main { padding: 80px 8%; max-width: 1200px; margin: 0 auto; min-height: 85vh; }
-        
-        .page { display: none; width: 100%; opacity: 0; }
-        .page.active { display: block !important; animation: fadeInPremium 0.8s forwards; }
-        @keyframes fadeInPremium { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .hero { text-align: center; margin-bottom: 80px; }
-        .hero h1 { 
-            font-size: clamp(2.8rem, 7vw, 4.5rem); line-height: 1.1; margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, var(--gold), var(--gold-bright));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        input, select, textarea { 
+            width: 100%; padding: 15px; background: var(--grey); border: 1px solid var(--border); 
+            color: #fff; margin-bottom: 20px; font-family: 'Montserrat';
         }
-        .hero p { color: #888; font-size: 1.2rem; max-width: 700px; margin: 0 auto; font-weight: 300; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; }
-        
-        /* CARDURI GLASSMORPHISM MINIMALIST */
-        .card {
-            background: var(--card-bg); padding: 50px; border-radius: 4px; /* Margini drepte, mai moderne */
-            border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            transition: 0.5s cubic-bezier(0.2, 1, 0.2, 1); backdrop-filter: blur(10px);
-        }
-        .card:hover { transform: translateY(-10px); border-color: rgba(195, 163, 97, 0.6); box-shadow: 0 20px 60px rgba(195, 163, 97, 0.1); }
-
-        /* --- UI ELEMENTS LUXURY --- */
-        .gold-btn {
-            background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 18px 30px; 
-            border-radius: 2px; font-family: 'Montserrat', sans-serif; font-weight: 600; 
-            text-transform: uppercase; cursor: pointer; width: 100%;
-            margin-top: 25px; transition: 0.4s; letter-spacing: 2px; font-size: 11px;
-        }
-        .gold-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(195, 163, 97, 0.3); }
-
-        input, select {
-            width: 100%; padding: 15px; background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border); border-radius: 2px; color: white;
-            margin: 10px 0 25px; outline: none; box-sizing: border-box; font-family: 'Montserrat', sans-serif;
-        }
-        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.05); }
-        label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #666; font-weight: 600; }
-
-        .price-display { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 700; display: block; margin: 15px 0; text-align: center; }
-
-        /* LISTS */
-        ul { list-style: none; padding: 0; margin-top: 30px; }
-        li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.03); color: #999; font-size: 14px; display: flex; align-items: center; gap: 15px; }
-        li::before { content: "―"; color: var(--gold); font-weight: bold; }
-
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo-container" onclick="showPage('airbnb')">
-            <div class="logo-visual"></div>
-            <div style="line-height: 1;">
-                <span style="font-weight: 600; font-size: 18px; color: #fff; letter-spacing: 1px;">AIR</span><br>
-                <span style="font-weight: 300; font-size: 10px; letter-spacing: 3px; color: var(--gold);">SUPPORT</span>
-            </div>
+        <div class="logo" onclick="navTo('home')">
+            <div class="logo-box"></div>
+            <div><span style="font-weight:600; font-size:16px;">AIR</span> <span style="color:var(--gold); font-weight:200;">SUPPORT</span></div>
         </div>
         <div class="nav-links">
-            <div class="nav-link" onclick="showPage('airbnb')">Management</div>
-            <div class="nav-link" onclick="showPage('cleaning')">Curățenie</div>
-            <div class="nav-link" onclick="showPage('contact')">Contact</div>
+            <div class="nav-item" onclick="navTo('home')">Home</div>
+            <div class="nav-item" onclick="navTo('tarife')">Tarife</div>
+            <div class="nav-item" onclick="navTo('portofoliu')">Portofoliu</div>
+            <div class="nav-item" onclick="navTo('contact')">Contact</div>
         </div>
     </nav>
 
-    <main>
-        <div id="airbnb" class="page active">
-            <div class="hero">
-                <h1>Property <span style="color:var(--gold)">Management</span> Elite</h1>
-                <p>Optimizăm randamentul investiției tale prin servicii premium de administrare în regim hotelier.</p>
+    <section id="home" class="active">
+        <h1 style="font-size: 4rem; text-align: center; margin-bottom: 20px;">Property <span style="color:var(--gold)">Care</span></h1>
+        <p style="text-align: center; color: #666; max-width: 600px; margin: 0 auto 50px auto;">Servicii profesionale de administrare și igienizare la standarde hoteliere pentru proprietățile premium din Roman.</p>
+        
+        <div style="text-align:center">
+            <button class="btn-gold" style="width:auto;" onclick="navTo('contact')">Solicită o evaluare gratuită</button>
+        </div>
+    </section>
+
+    <section id="tarife">
+        <h2 style="text-align:center">Grila de <span style="color:var(--gold)">Tarife</span></h2>
+        
+        <table class="pricing-table">
+            <thead>
+                <tr><th>TIP LOCUINȚĂ</th><th>Igienizare Mentenanță</th><th>Curățenie Generală</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Apartament 1 Cameră</td><td class="price-tag">de la 180 RON</td><td class="price-tag">de la 350 RON</td></tr>
+                <tr><td>Apartament 2 Camere</td><td class="price-tag">de la 250 RON</td><td class="price-tag">de la 450 RON</td></tr>
+                <tr><td>Apartament 3 Camere</td><td class="price-tag">de la 320 RON</td><td class="price-tag">de la 600 RON</td></tr>
+                <tr><td>Apartament 4 Camere+ / Vilă</td><td class="price-tag">Consultanță</td><td class="price-tag">Consultanță</td></tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 60px; padding: 30px; border: 1px solid var(--gold); text-align: center;">
+            <h3 style="color:var(--gold)">Parteneriate Business / Firme</h3>
+            <p style="font-size: 13px; color:#888;">Oferim soluții customizate pentru birouri, spații comerciale sau clădiri industriale. Facturare PFA/SRL.</p>
+            <button class="btn-gold" style="width:auto" onclick="navTo('contact')">Solicită Ofertă Personalizată</button>
+        </div>
+    </section>
+
+    <section id="portofoliu">
+        <h2 style="text-align:center; margin-bottom: 50px;">Standardul <span style="color:var(--gold)">AIR Support</span></h2>
+        
+        <div class="portfolio-grid">
+            <div class="comparison-container">
+                <div class="ba-images">
+                    <div class="ba-box"><span class="ba-tag">ÎNAINTE</span><img src="https://via.placeholder.com/400x300/111/666?text=Before+1" alt="Inainte"></div>
+                    <div class="ba-box"><span class="ba-tag">DUPĂ</span><img src="https://via.placeholder.com/400x300/111/c3a361?text=After+1" alt="Dupa"></div>
+                </div>
+                <h4 style="margin:0; color:var(--gold)">Igienizare Bucătărie</h4>
+                <p style="font-size: 11px; color:#666;">Eliminare grăsimi și depuneri calcar.</p>
             </div>
-            <div class="grid">
-                <div class="card">
-                    <h3 style="color:var(--gold); text-align: center;">Estimator Randament</h3>
-                    <label>Tarif Mediu / Noapte (RON)</label>
-                    <input type="number" id="p-air" value="450" oninput="calcA()">
-                    <label>Grad Ocupare Lunar: <span id="l-nopti" style="color:var(--gold)">22</span> nopți</label>
-                    <input type="range" id="r-nopti" min="1" max="30" value="22" oninput="calcA()">
-                    <div style="text-align:center">
-                        <span class="price-display" id="res-air">7.920 RON</span>
-                        <p style="font-size: 12px; color:#555; font-weight: 400;">Venit NET estimat (după comision administrare)</p>
-                    </div>
-                    <button class="gold-btn" onclick="showPage('contact')">Rezervă Consultanță Privatâ</button>
+
+            <div class="comparison-container">
+                <div class="ba-images">
+                    <div class="ba-box"><span class="ba-tag">ÎNAINTE</span><img src="https://via.placeholder.com/400x300/111/666?text=Before+2" alt="Inainte"></div>
+                    <div class="ba-box"><span class="ba-tag">DUPĂ</span><img src="https://via.placeholder.com/400x300/111/c3a361?text=After+2" alt="Dupa"></div>
                 </div>
-                <div class="card">
-                    <h3 style="color:var(--gold); text-align: center;">Pachetul de Servicii</h3>
-                    <ul style="margin-top: 10px;">
-                        <li>🔱 Fotografie profesională & Optimizare listare</li>
-                        <li>🔱 Check-in/out automatizat & Asistență oaspeți</li>
-                        <li>🔱 Igienizare & Mentenanță la standarde hoteliere</li>
-                        <li>🔱 Raportare financiară trimestrială detaliată</li>
-                    </ul>
-                </div>
+                <h4 style="margin:0; color:var(--gold)">Igienizare Baie</h4>
+                <p style="font-size: 11px; color:#666;">Tratament anticalcar robineți și rosturi.</p>
             </div>
         </div>
+        
+        <p style="text-align:center; margin-top:40px; color:#444; font-size:12px;">* Imaginile de mai sus au rol informativ. Proiecte noi se încarcă săptămânal.</p>
+    </section>
 
-        <div id="cleaning" class="page">
-            <div class="hero">
-                <h1>Servicii de <span style="color:var(--gold)">Igienizare</span></h1>
-                <p>Standarde hoteliere de 5 stele pentru reședințe private și spații comerciale.</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3 style="color:var(--gold); text-align: center;">Estimator Serviciu</h3>
-                    <label>Suprafață Aproximativă</label>
-                    <select id="c-type" onchange="calcC()">
-                        <option value="180">Garsonieră</option>
-                        <option value="280" selected>Apartament 2 camere</option>
-                        <option value="400">Apartament 3 camere</option>
-                        <option value="900">Vilă / Casă Rezidențială</option>
-                        <option value="0">Spațiu Comercial (Cere Ofertă)</option>
-                    </select>
-                    <label>Tipul Intervenției</label>
-                    <select id="c-pack" onchange="calcC()">
-                        <option value="1">Igienizare Standard Gold</option>
-                        <option value="1.8">Curățenie Generală Platinum</option>
-                        <option value="2.8">Curățenie Post-Renovare Diamond</option>
-                    </select>
-                    <div style="text-align:center">
-                        <span class="price-display" id="res-clean">280 RON</span>
-                    </div>
-                    <button class="gold-btn" onclick="showPage('contact')">Programează Vizită Evaluare</button>
-                </div>
-            </div>
+    <section id="contact">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <h2 style="text-align:center">Consultanță <span style="color:var(--gold)">Customized</span></h2>
+            <p style="text-align:center; color:#666; font-size: 13px; margin-bottom: 40px;">Trimite-ne detaliile proiectului tău și revenim cu o propunere în maxim 12 ore.</p>
+            
+            <input type="text" id="c_name" placeholder="NUME COMPLET / COMPANIE">
+            <input type="text" id="c_phone" placeholder="TELEFON CONTACT">
+            <input type="email" id="c_email" placeholder="ADRESA E-MAIL">
+            <select id="c_service">
+                <option value="Mentenanta Rezidentiala">Mentenanță Rezidențială (Abonament)</option>
+                <option value="Curatenie Generala">Curățenie Generală</option>
+                <option value="Property Management">Property Management (Full Service)</option>
+                <option value="Business/Custom">Business / Spații Comerciale (Custom)</option>
+            </select>
+            <textarea id="c_message" rows="4" placeholder="DETALII SUPLIMENTARE (SUPRAFAȚĂ, LOCAȚIE, CERINȚE)"></textarea>
+
+            <button class="btn-gold" id="sendBtn" onclick="sendMail()">Trimite Solicitarea</button>
+            <p id="msgStatus" style="text-align:center; margin-top:20px; font-size:12px;"></p>
         </div>
-
-        <div id="contact" class="page">
-            <div class="card" style="max-width: 600px; margin: 0 auto; border-radius: 2px;">
-                <h2 style="text-align: center; color: var(--gold); margin-bottom: 30px;">Solicitare Servicii Premium</h2>
-                
-                <label>Numele Complet:</label>
-                <input type="text" id="client_name" placeholder="Ex: Alexandru Popescu" required>
-                
-                <label>Adresa de E-mail:</label>
-                <input type="email" id="client_email" placeholder="Ex: contact@email.com" required>
-                
-                <label>Număr de Telefon:</label>
-                <input type="text" id="client_phone" placeholder="Ex: 0722 000 000" required>
-                
-                <label>Tipul Serviciului Dorit:</label>
-                <select id="client_service">
-                    <option value="Property Management">Property Management (Regim Hotelier)</option>
-                    <option value="Igienizare Rezidentiala">Igienizare Rezidențială</option>
-                    <option value="Curatenie dupa Constructor">Curățenie după Constructor</option>
-                    <option value="Audit Imobiliar">Audit Randament Imobiliar</option>
-                </select>
-
-                <button class="gold-btn" id="btn-submit" onclick="sendEmail()">Trimite Solicitarea</button>
-                <p id="status-msg" style="margin-top: 20px; text-align: center; font-weight: 600; font-size: 14px;"></p>
-            </div>
-        </div>
-    </main>
+    </section>
 
     <script>
-        function showPage(pageId) {
-            const allPages = document.querySelectorAll('.page');
-            for (let i = 0; i < allPages.length; i++) {
-                allPages[i].style.display = 'none';
-                allPages[i].classList.remove('active');
-            }
-            const targetPage = document.getElementById(pageId);
-            if(targetPage) {
-                targetPage.style.display = 'block';
-                setTimeout(() => targetPage.classList.add('active'), 20);
-            }
+        // NAVIGARE SIMPLĂ (Fix butoane)
+        function navTo(id) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
             window.scrollTo(0,0);
         }
 
-        function calcA() {
-            let p = document.getElementById('p-air').value;
-            let n = document.getElementById('r-nopti').value;
-            document.getElementById('l-nopti').innerText = n;
-            document.getElementById('res-air').innerText = Math.floor((p * n) * 0.8).toLocaleString() + " RON";
-        }
-
-        function calcC() {
-            let base = document.getElementById('c-type').value;
-            let mult = document.getElementById('c-pack').value;
-            let total = base * mult;
-            if(total === 0) {
-                document.getElementById('res-clean').innerText = "Cere Ofertă";
-            } else {
-                document.getElementById('res-clean').innerText = Math.floor(total).toLocaleString() + " RON";
-            }
-        }
-
-        function sendEmail() {
-            const btn = document.getElementById('btn-submit');
-            const status = document.getElementById('status-msg');
+        // EMAILJS REPARAT
+        function sendMail() {
+            const btn = document.getElementById('sendBtn');
+            const status = document.getElementById('msgStatus');
             
-            const templateParams = {
-                client_name: document.getElementById('client_name').value,
-                client_email: document.getElementById('client_email').value,
-                client_phone: document.getElementById('client_phone').value,
-                client_service: document.getElementById('client_service').value
+            const params = {
+                client_name: document.getElementById('c_name').value,
+                client_phone: document.getElementById('c_phone').value,
+                client_email: document.getElementById('c_email').value,
+                client_service: document.getElementById('c_service').value,
+                client_message: document.getElementById('c_message').value
             };
 
-            if(!templateParams.client_name || !templateParams.client_phone || !templateParams.client_email) {
-                status.innerText = "Te rugăm să completezi câmpurile obligatorii!";
-                status.style.color = "#ff4d4d";
+            if(!params.client_name || !params.client_phone) {
+                status.innerText = "Te rugăm să introduci Numele și Telefonul.";
+                status.style.color = "red";
                 return;
             }
 
-            btn.innerText = "Se procesează solicitarea...";
+            btn.innerText = "SE TRIMITE...";
             btn.disabled = true;
 
-            emailjs.send("service_5wk6asq", "template_zyofb16", templateParams)
-                .then(function() {
-                   status.innerText = "Solicitare trimisă cu succes! Echipa noastră te va contacta în 24h.";
-                   status.style.color = var(--gold);
-                   btn.innerText = "Trimis!";
-                }, function(error) {
-                   status.innerText = "Eroare la procesare. Verifică datele introduse.";
-                   status.style.color = "#ff4d4d";
-                   btn.disabled = false;
-                   btn.innerText = "Reîncearcă";
+            emailjs.send("service_5wk6asq", "template_zyofb16", params)
+                .then(() => {
+                    status.innerText = "Mesaj trimis cu succes. Vei fi contactat în scurt timp.";
+                    status.style.color = "#c3a361";
+                    btn.innerText = "TRIMIS";
+                }, (err) => {
+                    status.innerText = "Eroare la trimitere. Reîncercați.";
+                    status.style.color = "red";
+                    btn.disabled = false;
+                    btn.innerText = "REÎNCEARCĂ";
                 });
         }
     </script>
