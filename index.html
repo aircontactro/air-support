@@ -28,7 +28,6 @@
             font-family: 'Poppins', sans-serif; overflow-x: hidden;
         }
 
-        /* NAVIGATION */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: #000;
@@ -52,12 +51,8 @@
         .active-page { display: block !important; }
 
         .hero { text-align: center; margin-bottom: 50px; }
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; font-size: 3rem;
-            color: var(--gold); margin-bottom: 10px;
-        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--gold); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card {
             background: var(--card-bg); padding: 30px; border-radius: 15px;
             border: 1px solid var(--border); text-align: center;
@@ -66,7 +61,7 @@
         .gold-btn {
             background: var(--gold); color: #000; border: none; padding: 15px;
             border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%;
-            margin-top: 20px; text-transform: uppercase;
+            margin-top: 10px; text-transform: uppercase;
         }
 
         input, select {
@@ -75,7 +70,7 @@
             margin-bottom: 15px; box-sizing: border-box;
         }
 
-        .price-display { font-size: 2.5rem; color: var(--gold); font-weight: 700; margin: 10px 0; display: block; }
+        .price-display { font-size: 2.5rem; color: var(--gold); font-weight: 700; display: block; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -91,43 +86,60 @@
         <div class="nav-links">
             <div class="nav-link" onclick="showPage('airbnb')">Airbnb</div>
             <div class="nav-link" onclick="showPage('cleaning')">Curățenie</div>
-            <div class="nav-link" onclick="showPage('portfolio')">Portofoliu</div>
             <div class="nav-link" onclick="showPage('contact')">Contact</div>
         </div>
     </nav>
 
     <main>
         <div id="airbnb" class="page active-page">
-            <div class="hero">
-                <h1>Elite Airbnb</h1>
-                <p>Management premium în Roman.</p>
+            <div class="hero"><h1>Management Airbnb</h1></div>
+            <div class="card" style="max-width: 400px; margin: 0 auto;">
+                <h3>Estimează Venit</h3>
+                <input type="number" id="p-air" value="450" oninput="calcA()">
+                <input type="range" id="r-nopti" min="1" max="30" value="22" oninput="calcA()">
+                <span class="price-display" id="res-air">7.920 RON</span>
+                <button class="gold-btn" onclick="showPage('contact')">Solicită Ofertă</button>
             </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>Calculator Profit</h3>
-                    <label>Preț Noapte (RON)</label>
-                    <input type="number" id="p-air" value="450" oninput="calcA()">
-                    <label>Zile ocupate: <span id="l-nopti">22</span></label>
-                    <input type="range" id="r-nopti" min="1" max="30" value="22" oninput="calcA()">
-                    <span class="price-display" id="res-air">7.920 RON</span>
-                    <button class="gold-btn" onclick="showPage('contact')">Vreau Management</button>
-                </div>
+        </div>
+
+        <div id="cleaning" class="page">
+            <div class="hero"><h1>Curățenie Premium</h1></div>
+            <div class="card" style="max-width: 400px; margin: 0 auto;">
+                <h3>Preț estimativ</h3>
+                <select id="c-type" onchange="calcC()">
+                    <option value="180">Garsonieră</option>
+                    <option value="280" selected>Apartament 2 camere</option>
+                    <option value="400">Apartament 3 camere</option>
+                    <option value="800">Vilă</option>
+                </select>
+                <span class="price-display" id="res-clean">280 RON</span>
+                <button class="gold-btn" onclick="showPage('contact')">Rezervă Acum</button>
             </div>
         </div>
 
         <div id="contact" class="page">
-            <div class="card" style="max-width: 500px; margin: 0 auto;">
-                <h2>Contact</h2>
-                <p>Lasă-ne datele și te sunăm noi!</p>
-                <input type="text" id="from_name" placeholder="Numele tău" required>
-                <input type="text" id="user_phone" placeholder="Numărul de telefon" required>
-                <select id="service_type">
+            <div class="card" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                <h2 style="text-align: center; color: var(--gold);">Contactează-ne</h2>
+                
+                <label>Nume Client:</label>
+                <input type="text" id="client_name" placeholder="Ex: Popescu Ion" required>
+                
+                <label>Email Client:</label>
+                <input type="email" id="client_email" placeholder="Ex: nume@email.com" required>
+                
+                <label>Telefon Client:</label>
+                <input type="text" id="client_phone" placeholder="Ex: 0722 000 000" required>
+                
+                <label>Serviciu Solicitat:</label>
+                <select id="client_service">
                     <option value="Management Airbnb">Management Airbnb</option>
-                    <option value="Curatenie">Curățenie</option>
-                    <option value="Pachet Complet">Ambele</option>
+                    <option value="Curatenie Locuinta">Curățenie Locuință</option>
+                    <option value="Curatenie dupa Constructor">Curățenie după Constructor</option>
+                    <option value="Pachet Complet">Management + Curățenie</option>
                 </select>
-                <button class="gold-btn" id="btn-submit" onclick="sendEmail()">Trimite Mesajul</button>
-                <p id="status-msg" style="margin-top: 15px; font-weight: bold;"></p>
+
+                <button class="gold-btn" id="btn-submit" onclick="sendEmail()">Trimite Solicitarea</button>
+                <p id="status-msg" style="margin-top: 15px; text-align: center; font-weight: bold;"></p>
             </div>
         </div>
     </main>
@@ -135,9 +147,7 @@
     <script>
         function showPage(pageId) {
             const allPages = document.getElementsByClassName('page');
-            for (let i = 0; i < allPages.length; i++) {
-                allPages[i].style.display = 'none';
-            }
+            for (let i = 0; i < allPages.length; i++) { allPages[i].style.display = 'none'; }
             document.getElementById(pageId).style.display = 'block';
             window.scrollTo(0,0);
         }
@@ -145,23 +155,28 @@
         function calcA() {
             let p = document.getElementById('p-air').value;
             let n = document.getElementById('r-nopti').value;
-            document.getElementById('l-nopti').innerText = n;
             document.getElementById('res-air').innerText = Math.floor((p * n) * 0.8).toLocaleString() + " RON";
+        }
+
+        function calcC() {
+            let base = document.getElementById('c-type').value;
+            document.getElementById('res-clean').innerText = base + " RON";
         }
 
         function sendEmail() {
             const btn = document.getElementById('btn-submit');
             const status = document.getElementById('status-msg');
             
-            // Luăm valorile din câmpuri
+            // Variabilele trimise catre EmailJS
             const templateParams = {
-                from_name: document.getElementById('from_name').value,
-                user_phone: document.getElementById('user_phone').value,
-                service_type: document.getElementById('service_type').value
+                client_name: document.getElementById('client_name').value,
+                client_email: document.getElementById('client_email').value,
+                client_phone: document.getElementById('client_phone').value,
+                client_service: document.getElementById('client_service').value
             };
 
-            if(!templateParams.from_name || !templateParams.user_phone) {
-                status.innerText = "Te rugăm să completezi numele și telefonul!";
+            if(!templateParams.client_name || !templateParams.client_phone || !templateParams.client_email) {
+                status.innerText = "Te rugăm să completezi toate câmpurile!";
                 status.style.color = "red";
                 return;
             }
@@ -170,14 +185,12 @@
             btn.disabled = true;
 
             emailjs.send("service_5wk6asq", "template_zyofb16", templateParams)
-                .then(function(response) {
-                   console.log('SUCCESS!', response.status, response.text);
-                   status.innerText = "Mesaj trimis! Te contactăm în curând.";
+                .then(function() {
+                   status.innerText = "Mesaj trimis! Verifică e-mail-ul.";
                    status.style.color = "gold";
                    btn.innerText = "Trimis!";
                 }, function(error) {
-                   console.log('FAILED...', error);
-                   status.innerText = "Eroare la trimitere. Încearcă din nou.";
+                   status.innerText = "Eroare la trimitere.";
                    status.style.color = "red";
                    btn.disabled = false;
                    btn.innerText = "Reîncearcă";
