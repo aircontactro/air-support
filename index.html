@@ -6,106 +6,32 @@
     <title>AIR Support | Premium Management & Cleaning</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #d4af37;
-            --gold-bright: #f9e29d;
-            --dark: #050505;
-            --card-bg: rgba(25, 25, 25, 0.8);
-            --border: rgba(212, 175, 55, 0.3);
-        }
-
-        body {
-            margin: 0; padding: 0; background-color: var(--dark); color: #fff;
-            font-family: 'Poppins', sans-serif; scroll-behavior: smooth; overflow-x: hidden;
-        }
-
-        /* --- PROTO-LOGO 3D --- */
-        .logo-container {
-            display: flex; align-items: center; gap: 15px; text-decoration: none; cursor: pointer;
-        }
-        .logo-icon {
-            width: 45px; height: 45px; background: linear-gradient(135deg, var(--gold), #8a6d3b);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); transform: rotate(-5deg);
-            border: 1px solid var(--gold-bright); position: relative;
-        }
-        .logo-icon::after {
-            content: '🧹'; font-size: 20px;
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; background: rgba(0,0,0,0.9);
-            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
+        :root { --gold: #d4af37; --gold-bright: #f9e29d; --dark: #050505; --card-bg: rgba(25, 25, 25, 0.8); --border: rgba(212, 175, 55, 0.3); }
+        body { margin: 0; padding: 0; background-color: var(--dark); color: #fff; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        
+        /* NAVIGATION */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo-container { display: flex; align-items: center; gap: 15px; cursor: pointer; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--gold), #8a6d3b); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); border: 1px solid var(--gold-bright); }
+        .logo-icon::after { content: '🧹'; font-size: 20px; }
         .nav-links { display: flex; gap: 30px; }
-        .nav-link { 
-            color: #ccc; text-decoration: none; font-size: 14px; font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
-        }
-        .nav-link:hover, .nav-link.active-link { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+        .nav-link { color: #ccc; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .nav-link:hover { color: var(--gold); }
 
-        /* --- HERO SECTION --- */
         main { padding: 60px 8%; max-width: 1200px; margin: 0 auto; }
-        .hero { text-align: center; margin-bottom: 80px; }
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 10px;
-            background: linear-gradient(to right, var(--gold-bright), var(--gold), #8a6d3b);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        /* --- 3D CARDS --- */
         .page { display: none; animation: fadeInUp 0.6s ease forwards; }
         .active { display: block; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .card {
-            background: var(--card-bg); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--border); position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6); transition: 0.4s ease;
-            backdrop-filter: blur(5px);
-        }
-        .card:hover { 
-            transform: translateY(-10px) scale(1.02); 
-            border-color: var(--gold);
-            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.15);
-        }
-
-        /* --- UI ELEMENTS --- */
-        .gold-btn {
-            background: linear-gradient(135deg, var(--gold), #8a6d3b);
-            color: #000; border: none; padding: 18px 30px; border-radius: 12px;
-            font-weight: 800; text-transform: uppercase; cursor: pointer;
-            width: 100%; transition: 0.3s; margin-top: 20px;
-        }
-        .gold-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
-
-        input, select {
-            width: 100%; padding: 15px; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border); border-radius: 10px; color: white;
-            margin: 10px 0 20px; outline: none;
-        }
+        .card { background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        .gold-btn { background: linear-gradient(135deg, var(--gold), #8a6d3b); color: #000; border: none; padding: 18px 30px; border-radius: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 20px; }
+        .gold-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--gold); }
+        
+        input, select { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: white; margin: 10px 0 20px; box-sizing: border-box; outline: none; }
         input:focus { border-color: var(--gold); }
-
-        .price-display { font-size: 2.5rem; color: var(--gold); font-weight: 700; display: block; margin: 15px 0; }
-
-        /* --- PORTFOLIO --- */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .portfolio-item {
-            height: 250px; border-radius: 15px; overflow: hidden; position: relative; border: 1px solid var(--border);
-        }
-        .portfolio-img {
-            width: 100%; height: 100%; background-size: cover; background-position: center;
-            transition: 0.5s; background-color: #222; /* Placeholder */
-        }
-        .portfolio-item:hover .portfolio-img { transform: scale(1.1); }
-        .portfolio-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-        }
+        .price-display { font-size: 2.5rem; color: var(--gold); font-weight: 700; display: block; margin: 15px 0; text-align: center; }
+        
+        label { font-size: 0.9rem; color: #aaa; }
     </style>
 </head>
 <body>
@@ -115,148 +41,29 @@
             <div class="logo-icon"></div>
             <div style="line-height: 1;">
                 <span style="font-weight: 800; font-size: 20px; color: var(--gold);">AIR</span><br>
-                <span style="font-weight: 300; font-size: 14px; letter-spacing: 2px; color: #fff;">SUPPORT</span>
+                <span style="font-weight: 300; font-size: 14px; color: #fff; letter-spacing: 2px;">SUPPORT</span>
             </div>
         </div>
         <div class="nav-links">
             <span class="nav-link" onclick="showPage('airbnb')">Airbnb</span>
             <span class="nav-link" onclick="showPage('cleaning')">Curățenie</span>
-            <span class="nav-link" onclick="showPage('portfolio')">Portofoliu</span>
             <span class="nav-link" onclick="showPage('contact')">Contact</span>
         </div>
     </nav>
 
     <main>
-        
         <div id="airbnb" class="page active">
-            <div class="hero">
-                <h1>Servicii <span style="color:var(--gold)">Elite</span> Airbnb</h1>
-                <p>Transformăm proprietatea ta într-o investiție de lux complet automatizată.</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3 style="color:var(--gold)">Calculator Venit</h3>
-                    <label>Tarif Noapte (RON)</label>
-                    <input type="number" id="p-air" value="450" oninput="calcA()">
-                    <label>Ocupare: <span id="l-nopti" style="color:var(--gold)">22 zile</span></label>
-                    <input type="range" id="r-nopti" min="1" max="30" value="22" oninput="calcA()">
-                    <div style="text-align:center">
-                        <span class="price-display" id="res-air">7.920 RON</span>
-                        <p style="font-size: 12px; color:#888;">Profit NET lunar după comision 20%</p>
-                    </div>
-                    <button class="gold-btn" onclick="showPage('contact')">Rezervă Consultanță</button>
+            <div class="card" style="text-align: center;">
+                <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold);">Management Airbnb Premium</h1>
+                <p>Estimează-ți venitul lunar net:</p>
+                <div style="max-width: 400px; margin: 0 auto; text-align: left;">
+                    <label>Tarif pe noapte (RON)</label>
+                    <input type="number" id="p-air" value="450" oninput="calc()">
+                    <label>Grad de ocupare: <span id="l-nopti" style="color:var(--gold)">22 zile</span></label>
+                    <input type="range" id="r-nopti" min="1" max="30" value="22" oninput="calc()">
                 </div>
-                <div class="card">
-                    <h3 style="color:var(--gold)">Standardul de Aur</h3>
-                    <ul style="list-style: none; padding: 0; line-height: 2;">
-                        <li>🔱 Management complet al rezervărilor</li>
-                        <li>🔱 Curățenie la standard hotelier 5*</li>
-                        <li>🔱 Mentenanță și suport tehnic rapid</li>
-                        <li>🔱 Rapoarte financiare lunare detaliate</li>
-                    </ul>
-                </div>
+                <span class="price-display" id="res-air">7.920 RON</span>
+                <p style="font-size: 0.8rem; color: #888;">*După comisionul de management de 20%</p>
+                <button class="gold-btn" onclick="showPage('contact')">Vreau Consultanță</button>
             </div>
         </div>
-
-        <div id="cleaning" class="page">
-            <div class="hero">
-                <h1>Curățenie <span style="color:var(--gold)">Profesională</span></h1>
-                <p>Luxul se simte prin prospețime. Servicii premium pentru reședințe private.</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3 style="color:var(--gold)">Estimator Serviciu</h3>
-                    <label>Suprafață Locuință</label>
-                    <select id="c-type" onchange="calcC()">
-                        <option value="180">Garsonieră</option>
-                        <option value="280" selected>Apartament 2 camere</option>
-                        <option value="400">Apartament 3 camere</option>
-                        <option value="800">Casă / Vilă</option>
-                    </select>
-                    <label>Pachet Servicii</label>
-                    <select id="c-pack" onchange="calcC()">
-                        <option value="1">Standard Gold</option>
-                        <option value="1.5">Deep Cleaning Platinum</option>
-                        <option value="2.5">Post-Renovare Diamond</option>
-                    </select>
-                    <div style="text-align:center">
-                        <span class="price-display" id="res-clean">280 RON</span>
-                    </div>
-                    <button class="gold-btn" onclick="showPage('contact')">Programează Vizită</button>
-                </div>
-                <div class="card">
-                    <h3>De ce AIR Support?</h3>
-                    <p>Fiecare colț al casei tale primește atenție de expert, folosind tehnologie și soluții care nu afectează suprafețele fine.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="portfolio" class="page">
-            <div class="hero">
-                <h1>Portofoliu <span style="color:var(--gold)">Exclusiv</span></h1>
-                <p>Vezi proprietățile care generează profit sub managementul nostru.</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=500&auto=format&fit=crop');"></div>
-                    <div class="portfolio-overlay">
-                        <strong style="color:var(--gold)">Penthouse Sky-High</strong><br>
-                        <small>Management Airbnb + Curățenie VIP</small>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=500&auto=format&fit=crop');"></div>
-                    <div class="portfolio-overlay">
-                        <strong style="color:var(--gold)">The Urban Loft</strong><br>
-                        <small>Randament 85% grad ocupare</small>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=500&auto=format&fit=crop');"></div>
-                    <div class="portfolio-overlay">
-                        <strong style="color:var(--gold)">Garden Residence</strong><br>
-                        <small>Servicii Curățenie Săptămânală</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="contact" class="page">
-            <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
-                <h2 style="color:var(--gold)">Să începem Colaborarea</h2>
-                <p>Lasă detaliile tale și te vom contacta pentru o evaluare privată.</p>
-                <input type="text" placeholder="Numele Complet">
-                <input type="text" placeholder="Telefon">
-                <select>
-                    <option>Management Airbnb</option>
-                    <option>Curățenie Rezidențială</option>
-                    <option>Ambele</option>
-                </select>
-                <button class="gold-btn">Trimite Solicitarea</button>
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        function showPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        function calcA() {
-            let p = document.getElementById('p-air').value;
-            let n = document.getElementById('r-nopti').value;
-            document.getElementById('l-nopti').innerText = n + " zile";
-            document.getElementById('res-air').innerText = Math.floor((p * n) * 0.8).toLocaleString() + " RON";
-        }
-
-        function calcC() {
-            let base = document.getElementById('c-type').value;
-            let mult = document.getElementById('c-pack').value;
-            document.getElementById('res-clean').innerText = Math.floor(base * mult).toLocaleString() + " RON";
-        }
-    </script>
-</body>
-</html>
