@@ -48,9 +48,8 @@
 
         main { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
         
-        /* FIX PAGINI */
-        .page { display: none; } /* Toate ascunse default */
-        .active-page { display: block !important; } /* Doar cea activa se vede */
+        .page { display: none; } 
+        .active-page { display: block !important; }
 
         .hero { text-align: center; margin-bottom: 50px; }
         .hero h1 { 
@@ -77,12 +76,6 @@
         }
 
         .price-display { font-size: 2.5rem; color: var(--gold); font-weight: 700; margin: 10px 0; display: block; }
-
-        /* PORTFOLIO */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .portfolio-item { height: 200px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); position: relative; }
-        .portfolio-img { width: 100%; height: 100%; background-size: cover; background-position: center; }
-        .portfolio-text { position: absolute; bottom: 10px; left: 10px; color: var(--gold); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -107,7 +100,7 @@
         <div id="airbnb" class="page active-page">
             <div class="hero">
                 <h1>Elite Airbnb</h1>
-                <p>Management premium pentru proprietatea ta din Roman.</p>
+                <p>Management premium în Roman.</p>
             </div>
             <div class="grid">
                 <div class="card">
@@ -122,75 +115,30 @@
             </div>
         </div>
 
-        <div id="cleaning" class="page">
-            <div class="hero">
-                <h1>Curățenie VIP</h1>
-                <p>Standarde de lux la tine acasă.</p>
-            </div>
-            <div class="grid">
-                <div class="card">
-                    <h3>Estimator Preț</h3>
-                    <select id="c-type" onchange="calcC()">
-                        <option value="180">Garsonieră</option>
-                        <option value="280" selected>Apartament 2 camere</option>
-                        <option value="400">Apartament 3 camere</option>
-                        <option value="800">Vilă</option>
-                    </select>
-                    <select id="c-pack" onchange="calcC()">
-                        <option value="1">Standard</option>
-                        <option value="1.7">Generală</option>
-                    </select>
-                    <span class="price-display" id="res-clean">280 RON</span>
-                    <button class="gold-btn" onclick="showPage('contact')">Rezervă acum</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="portfolio" class="page">
-            <div class="hero"><h1>Portofoliu</h1></div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400');"></div>
-                    <div class="portfolio-text">Apartament Roman</div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400');"></div>
-                    <div class="portfolio-text">Penthouse Lux</div>
-                </div>
-            </div>
-        </div>
-
         <div id="contact" class="page">
             <div class="card" style="max-width: 500px; margin: 0 auto;">
                 <h2>Contact</h2>
-                <input type="text" id="from_name" placeholder="Numele tău">
-                <input type="text" id="user_phone" placeholder="Telefon">
+                <p>Lasă-ne datele și te sunăm noi!</p>
+                <input type="text" id="from_name" placeholder="Numele tău" required>
+                <input type="text" id="user_phone" placeholder="Numărul de telefon" required>
                 <select id="service_type">
-                    <option>Management Airbnb</option>
-                    <option>Curățenie Rezidențială</option>
+                    <option value="Management Airbnb">Management Airbnb</option>
+                    <option value="Curatenie">Curățenie</option>
+                    <option value="Pachet Complet">Ambele</option>
                 </select>
-                <button class="gold-btn" id="btn-submit" onclick="sendEmail()">Trimite</button>
-                <p id="status-msg" style="margin-top: 15px;"></p>
+                <button class="gold-btn" id="btn-submit" onclick="sendEmail()">Trimite Mesajul</button>
+                <p id="status-msg" style="margin-top: 15px; font-weight: bold;"></p>
             </div>
         </div>
     </main>
 
     <script>
-        // NAVIGARE - REPARATA RADICAL
         function showPage(pageId) {
-            // 1. Ascunde absolut tot ce are clasa 'page'
             const allPages = document.getElementsByClassName('page');
             for (let i = 0; i < allPages.length; i++) {
                 allPages[i].style.display = 'none';
-                allPages[i].classList.remove('active-page');
             }
-            
-            // 2. Afiseaza doar pagina ceruta
-            const selectedPage = document.getElementById(pageId);
-            if(selectedPage) {
-                selectedPage.style.display = 'block';
-                selectedPage.classList.add('active-page');
-            }
+            document.getElementById(pageId).style.display = 'block';
             window.scrollTo(0,0);
         }
 
@@ -201,35 +149,39 @@
             document.getElementById('res-air').innerText = Math.floor((p * n) * 0.8).toLocaleString() + " RON";
         }
 
-        function calcC() {
-            let base = document.getElementById('c-type').value;
-            let mult = document.getElementById('c-pack').value;
-            document.getElementById('res-clean').innerText = Math.floor(base * mult).toLocaleString() + " RON";
-        }
-
         function sendEmail() {
             const btn = document.getElementById('btn-submit');
             const status = document.getElementById('status-msg');
-            const name = document.getElementById('from_name').value;
-            const phone = document.getElementById('user_phone').value;
-            const service = document.getElementById('service_type').value;
+            
+            // Luăm valorile din câmpuri
+            const templateParams = {
+                from_name: document.getElementById('from_name').value,
+                user_phone: document.getElementById('user_phone').value,
+                service_type: document.getElementById('service_type').value
+            };
 
-            if(!name || !phone) {
-                status.innerText = "Bagă numele și telefonul!";
+            if(!templateParams.from_name || !templateParams.user_phone) {
+                status.innerText = "Te rugăm să completezi numele și telefonul!";
                 status.style.color = "red";
                 return;
             }
 
             btn.innerText = "Se trimite...";
-            emailjs.send("service_5wk6asq", "template_zyofb16", {
-                from_name: name,
-                user_phone: phone,
-                service_type: service
-            }).then(() => {
-                status.innerText = "Trimis cu succes!";
-                status.style.color = "gold";
-                btn.innerText = "GATA!";
-            });
+            btn.disabled = true;
+
+            emailjs.send("service_5wk6asq", "template_zyofb16", templateParams)
+                .then(function(response) {
+                   console.log('SUCCESS!', response.status, response.text);
+                   status.innerText = "Mesaj trimis! Te contactăm în curând.";
+                   status.style.color = "gold";
+                   btn.innerText = "Trimis!";
+                }, function(error) {
+                   console.log('FAILED...', error);
+                   status.innerText = "Eroare la trimitere. Încearcă din nou.";
+                   status.style.color = "red";
+                   btn.disabled = false;
+                   btn.innerText = "Reîncearcă";
+                });
         }
     </script>
 </body>
